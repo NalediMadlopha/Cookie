@@ -1,4 +1,4 @@
-package com.cookie.app.view;
+package app.cookie.app.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.cookie.www.cookie.R;
+import com.cookie.app.R;
 
 
 public class RecipeFragment extends Fragment {

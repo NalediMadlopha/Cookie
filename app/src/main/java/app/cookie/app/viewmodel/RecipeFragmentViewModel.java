@@ -1,4 +1,4 @@
-package com.cookie.app.viewmodel;
+package app.cookie.app.viewmodel;
 
 
 public class RecipeFragmentViewModel {

@@ -1,10 +1,11 @@
-package com.cookie.app.view;
+package app.cookie.app.view;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.cookie.www.cookie.R;
+import com.cookie.app.R;
+
 
 public class RecipeActivity extends AppCompatActivity {
 
