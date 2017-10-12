@@ -1,8 +1,16 @@
 package app.cookie.app.viewmodel;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,21 +19,25 @@ import app.cookie.app.view.RecipeFragmentView;
 
 public class RecipeFragmentViewModel {
 
+    private final Context context;
     private final RecipeFragmentView view;
 
-    public RecipeFragmentViewModel(RecipeFragmentView view) {
+    public RecipeFragmentViewModel(Context context, RecipeFragmentView view) {
+        this.context = context;
         this.view = view;
     }
 
     public void viewCreated() {
-        new FetchRecipesTask(view).execute();
+        new FetchRecipesTask(context, view).execute();
     }
 
     private static class FetchRecipesTask extends AsyncTask<Void, Void, List<Recipe>>{
 
+        private final Context context;
         private RecipeFragmentView view;
 
-        private FetchRecipesTask(RecipeFragmentView view) {
+        private FetchRecipesTask(Context context, RecipeFragmentView view) {
+            this.context = context;
             this.view = view;
         }
 
@@ -37,14 +49,26 @@ public class RecipeFragmentViewModel {
 
         @Override
         protected List<Recipe> doInBackground(Void... voids) {
+            return getRecipesLocally();
+        }
 
+        private List<Recipe> getRecipesLocally() {
             List<Recipe> recipeList = new ArrayList<>();
 
-            for (int i = 0; i < 4; i++) {
-                Recipe recipe = new Recipe();
-                recipe.setName("Test");
+            try {
+                InputStream inputStream = context.getAssets().open("recipes_data.json");
+                int size = inputStream.available();
+                byte[] buffer = new byte[size];
+                // TODO: 10/12/17 Check the value returned fromt the input stream
+                inputStream.read(buffer);
+                inputStream.close();
+                String json = new String(buffer, "UTF-8");
 
-                recipeList.add(recipe);
+                Type typeRecipes = new TypeToken<ArrayList<Recipe>>(){}.getType();
+                recipeList = new Gson().fromJson(json, typeRecipes);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
             }
 
             return recipeList;

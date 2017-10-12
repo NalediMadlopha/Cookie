@@ -34,7 +34,7 @@ public class RecipeFragment extends Fragment implements RecipeFragmentView {
         recipeProgressBar = rootView.findViewById(R.id.recipe_progress_bar);
         recipeRecyclerView = rootView.findViewById(R.id.recipe_recycler_view);
 
-        viewModel = new RecipeFragmentViewModel(this);
+        viewModel = new RecipeFragmentViewModel(getContext(), this);
 
         return rootView;
     }
@@ -57,7 +57,7 @@ public class RecipeFragment extends Fragment implements RecipeFragmentView {
 
     @Override
     public void displayRecipes(List<Recipe> recipeList) {
-        recipeRecyclerView.setAdapter(new RecipeAdapter(recipeList));
+        recipeRecyclerView.setAdapter(new RecipeAdapter(getContext(), recipeList));
         recipeRecyclerView.setLayoutManager(new AutoGridLayoutManager(getContext(), getResources().getInteger(R.integer.recipe_card_width)));
     }
 }
