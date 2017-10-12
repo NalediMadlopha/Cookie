@@ -11,8 +11,17 @@ import android.widget.ProgressBar;
 
 import com.cookie.app.R;
 
+import java.util.List;
 
-public class RecipeFragment extends Fragment {
+import app.cookie.app.model.Recipe;
+import app.cookie.app.viewmodel.RecipeFragmentViewModel;
+
+
+public class RecipeFragment extends Fragment implements RecipeFragmentView {
+
+    private ProgressBar recipeProgressBar;
+    private RecyclerView recipeRecyclerView;
+    private RecipeFragmentViewModel viewModel;
 
     public RecipeFragment() {
         // Required empty public constructor
@@ -22,9 +31,33 @@ public class RecipeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_recipe, container, false);
-        ProgressBar recipeProgressBar = rootView.findViewById(R.id.recipe_progress_bar);
-        RecyclerView recipeRecyclerView = rootView.findViewById(R.id.recipe_recycler_view);
+        recipeProgressBar = rootView.findViewById(R.id.recipe_progress_bar);
+        recipeRecyclerView = rootView.findViewById(R.id.recipe_recycler_view);
+
+        viewModel = new RecipeFragmentViewModel(this);
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel.viewCreated();
+    }
+
+    @Override
+    public void showProgressView() {
+        recipeProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressView() {
+        recipeProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void displayRecipes(List<Recipe> recipeList) {
+        recipeRecyclerView.setAdapter(new RecipeAdapter(recipeList));
+        recipeRecyclerView.setLayoutManager(new AutoGridLayoutManager(getContext(), getResources().getInteger(R.integer.recipe_card_width)));
     }
 }
