@@ -67,7 +67,6 @@ public class RecipeFragmentViewModel {
                 Type typeRecipes = new TypeToken<ArrayList<Recipe>>(){}.getType();
                 recipeList = new Gson().fromJson(json, typeRecipes);
             } catch (IOException e) {
-                e.printStackTrace();
                 Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
             }
 
