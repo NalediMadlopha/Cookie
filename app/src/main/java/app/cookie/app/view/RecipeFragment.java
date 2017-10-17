@@ -13,6 +13,7 @@ import com.cookie.app.R;
 
 import java.util.List;
 
+import app.cookie.app.data.RetroClient;
 import app.cookie.app.model.Recipe;
 import app.cookie.app.viewmodel.RecipeFragmentViewModel;
 
@@ -34,15 +35,15 @@ public class RecipeFragment extends Fragment implements RecipeFragmentView {
         recipeProgressBar = rootView.findViewById(R.id.recipe_progress_bar);
         recipeRecyclerView = rootView.findViewById(R.id.recipe_recycler_view);
 
-        viewModel = new RecipeFragmentViewModel(getContext(), this);
+        viewModel = new RecipeFragmentViewModel(getContext(), this, RetroClient.getApiService());
 
         return rootView;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        viewModel.viewCreated();
+    public void onResume() {
+        super.onResume();
+        viewModel.onResume();
     }
 
     @Override

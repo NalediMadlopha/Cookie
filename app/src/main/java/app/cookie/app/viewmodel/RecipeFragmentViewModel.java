@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.cookie.app.data.ApiService;
 import app.cookie.app.model.Recipe;
 import app.cookie.app.view.RecipeFragmentView;
 
@@ -21,18 +22,21 @@ public class RecipeFragmentViewModel {
 
     private final Context context;
     private final RecipeFragmentView view;
+    private final ApiService apiService;
 
-    public RecipeFragmentViewModel(Context context, RecipeFragmentView view) {
+    public RecipeFragmentViewModel(Context context, RecipeFragmentView view, ApiService apiService) {
         this.context = context;
         this.view = view;
+        this.apiService = apiService;
     }
 
-    public void viewCreated() {
+    public void onResume() {
         new FetchRecipesTask(context, view).execute();
     }
 
     private static class FetchRecipesTask extends AsyncTask<Void, Void, List<Recipe>>{
 
+        // TODO: 10/17/17 Remove the context from the view model
         private final Context context;
         private RecipeFragmentView view;
 
