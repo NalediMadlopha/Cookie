@@ -36,8 +36,11 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         ingredientsContainer = findViewById(R.id.ingredient_list_container);
         stepsContainer = findViewById(R.id.step_list_container);
 
-        viewModel = new RecipeDetailsActivityViewModel(this, getIntent().getIntExtra(RECIPE_ID, 0));
-        viewModel.onCreate(getIntent().getStringExtra(RECIPE_NAME));
+        int recipeId = getIntent().getIntExtra(RECIPE_ID, 0);
+        String recipeName = getIntent().getStringExtra(RECIPE_NAME);
+
+        viewModel = new RecipeDetailsActivityViewModel(this, getIntent().getExtras());
+        viewModel.onCreate();
     }
 
     @Override
@@ -82,10 +85,12 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     }
 
     @Override
-    public void displaySteps(List<Step> steps) {
+    public void displaySteps(int recipeId, String recipeName, List<Step> steps) {
         stepsContainer.setVisibility(View.VISIBLE);
 
         Bundle bundle = new Bundle();
+        bundle.putString(RECIPE_NAME, recipeName);
+        bundle.putInt(RECIPE_ID, recipeId);
         bundle.putParcelableArrayList(STEPS, (ArrayList) steps);
 
         StepsFragment stepsFragment = new StepsFragment();
@@ -96,5 +101,4 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
                 .replace(R.id.step_list_container, stepsFragment)
                 .commit();
     }
-
 }

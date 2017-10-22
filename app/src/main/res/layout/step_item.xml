@@ -3,8 +3,7 @@
     android:id="@+id/step_text_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/padding_12dp"
-    android:paddingBottom="@dimen/padding_12dp"
+    android:padding="@dimen/padding_16dp"
     android:clickable="true"
     android:focusable="true"
     android:background="?android:attr/selectableItemBackground" />

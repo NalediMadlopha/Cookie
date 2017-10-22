@@ -6,5 +6,5 @@ import java.util.List;
 import app.cookie.app.model.Step;
 
 public interface StepsFragmentView {
-    void displaySteps(List<Step> steps);
+    void displaySteps(int recipeId, String recipeName, List<Step> steps);
 }

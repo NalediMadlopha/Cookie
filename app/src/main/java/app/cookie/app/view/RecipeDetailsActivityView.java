@@ -16,5 +16,5 @@ public interface RecipeDetailsActivityView {
 
     void displayIngredients(List<Ingredient> ingredients);
 
-    void displaySteps(List<Step> steps);
+    void displaySteps(int recipeId, String recipeName, List<Step> steps);
 }

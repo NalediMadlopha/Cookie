@@ -21,6 +21,7 @@ public @interface CookieConstants {
         String RECIPE_ID = "recipe_id";
         String RECIPE_NAME = "recipe_name";
         String INGREDIENTS = "ingredients";
+        String STEP_ID = "step_id";
         String STEPS = "steps";
     }
 }

@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/step_details_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <VideoView
+                android:id="@+id/videoView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/step_video_view_height" />
+
+            <TextView
+                android:id="@+id/step_short_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_16dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                tools:text="Recipe step short description"/>
+
+            <TextView
+                android:id="@+id/step_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_16dp"
+                android:paddingRight="@dimen/padding_16dp"
+                android:paddingBottom="@dimen/padding_16dp"
+                tools:text="Recipe step description"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/previous_step_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:visibility="gone"
+            android:text="@string/previous"/>
+
+        <Button
+            android:id="@+id/next_step_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimary"
+            android:visibility="gone"
+            android:text="@string/next"/>
+
+    </LinearLayout>
+</RelativeLayout>
+

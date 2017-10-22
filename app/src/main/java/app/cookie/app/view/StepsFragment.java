@@ -49,10 +49,10 @@ public class StepsFragment extends Fragment implements StepsFragmentView {
     }
 
     @Override
-    public void displaySteps(List<Step> steps) {
+    public void displaySteps(int recipeId, String recipeName, List<Step> steps) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         stepsRecyclerView.setLayoutManager(layoutManager);
         stepsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), layoutManager.getOrientation()));
-        stepsRecyclerView.setAdapter(new StepsAdapter(steps));
+        stepsRecyclerView.setAdapter(new StepsAdapter(recipeId, recipeName, steps));
     }
 }

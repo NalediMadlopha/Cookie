@@ -2,49 +2,74 @@ package app.cookie.app.viewmodel;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.os.Bundle;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
+import app.cookie.app.Utils.Util;
 import app.cookie.app.model.Recipe;
+import app.cookie.app.view.RecipeDetailsActivity;
 import app.cookie.app.view.RecipeDetailsActivityView;
+
+import static android.content.Context.MODE_PRIVATE;
+import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
 
 public class RecipeDetailsActivityViewModel {
 
     private final RecipeDetailsActivityView view;
-    private final int recipeId;
+    private final Bundle bundle;
+    private int recipeId;
+    private String recipeName;
+    private RecipeDetailsActivity recipeDetailsActivity;
 
-    public RecipeDetailsActivityViewModel(RecipeDetailsActivityView view, int recipeId) {
+    public RecipeDetailsActivityViewModel(RecipeDetailsActivityView view, Bundle bundle) {
         this.view = view;
-        this.recipeId = recipeId;
+        this.recipeDetailsActivity = (RecipeDetailsActivity) view;
+        this.bundle = bundle;
     }
 
     public void onResume(Context context) {
-        new FetchRecipeDetailsTask(context, view, recipeId).execute();
+        SharedPreferences sharedPreferences;
+
+        if (bundle != null) {
+            recipeId = bundle.getInt(RECIPE_ID, 0);
+            recipeName = bundle.getString(RECIPE_NAME);
+            savePreferences(recipeId, recipeName);
+        } else {
+            sharedPreferences = recipeDetailsActivity.getPreferences(MODE_PRIVATE);
+            recipeId = sharedPreferences.getInt(RECIPE_ID, 0);
+            recipeName = sharedPreferences.getString(RECIPE_NAME, "");
+        }
+
+        new FetchRecipeDetailsTask(context, view, recipeId, recipeName).execute();
     }
 
-    public void onCreate(String title) {
-        view.displayScreenTitle(title);
+    public void onCreate() {
+        view.displayScreenTitle(recipeName);
+    }
+
+    private void savePreferences(int recipeId, String recipeName) {
+        SharedPreferences sharedPreferences;
+        sharedPreferences = recipeDetailsActivity.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(RECIPE_ID, recipeId);
+        editor.putString(RECIPE_NAME, recipeName);
+        editor.apply();
     }
 
     private static class FetchRecipeDetailsTask extends AsyncTask<Void, Void, Recipe>{
 
+        private Context context;
         private final RecipeDetailsActivityView view;
         private final int recipeId;
-        private Context context;
+        private String recipeName;
 
-        FetchRecipeDetailsTask(Context context, RecipeDetailsActivityView view, int recipeId) {
+        FetchRecipeDetailsTask(Context context, RecipeDetailsActivityView view, int recipeId, String recipeName) {
             this.context = context;
             this.view = view;
             this.recipeId = recipeId;
+            this.recipeName = recipeName;
         }
 
         @Override
@@ -55,38 +80,14 @@ public class RecipeDetailsActivityViewModel {
 
         @Override
         protected Recipe doInBackground(Void... voids) {
-            List<Recipe> recipeList = new ArrayList<>();
-
-            try {
-                InputStream inputStream = context.getAssets().open("recipes_data.json");
-                int size = inputStream.available();
-                byte[] buffer = new byte[size];
-                // TODO: 10/12/17 Check the value returned fromt the input stream
-                inputStream.read(buffer);
-                inputStream.close();
-                String json = new String(buffer, "UTF-8");
-
-                Type typeRecipes = new TypeToken<ArrayList<Recipe>>(){}.getType();
-                recipeList = new Gson().fromJson(json, typeRecipes);
-            } catch (IOException e) {
-                Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
-            }
-
-            Recipe selectedRecipe = new Recipe();
-            for (Recipe recipe : recipeList) {
-                if (recipeId == recipe.getId()) {
-                    selectedRecipe = recipe;
-                }
-            }
-
-            return selectedRecipe;
+            return Util.getRecipe(context, recipeId);
         }
 
         @Override
         protected void onPostExecute(Recipe recipe) {
             super.onPostExecute(recipe);
             view.displayIngredients(recipe.getIngredients());
-            view.displaySteps(recipe.getSteps());
+            view.displaySteps(recipeId, recipeName, recipe.getSteps());
             view.hideProgress();
         }
     }
