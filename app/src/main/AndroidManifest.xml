@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="app.cookie.app.view.RecipeDetailsActivity"
+            android:parentActivityName="app.cookie.app.view.RecipeActivity"/>
     </application>
 
 </manifest>
