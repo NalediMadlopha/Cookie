@@ -4,5 +4,6 @@
     <dimen name="margin_12dp">12dp</dimen>
     <dimen name="padding_12dp">12dp</dimen>
     <dimen name="recipe_card_image_height">250dp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
     <integer name="recipe_card_width">800</integer>
 </resources>

@@ -1,6 +1,7 @@
 package app.cookie.app.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cookie.app.R;
@@ -17,53 +17,36 @@ import java.util.List;
 
 import app.cookie.app.model.Recipe;
 
+import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
+
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCardViewHolder> {
 
     private final List<Recipe> recipeList;
     private Context context;
 
-    public RecipeAdapter(Context context, List<Recipe> recipeList) {
+    RecipeAdapter(Context context, List<Recipe> recipeList) {
         this.context = context;
         this.recipeList = recipeList;
-    }
-
-    class RecipeCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        ImageView recipeImageView;
-        TextView recipeNameTextView;
-
-        RecipeCardViewHolder(View itemView) {
-            super(itemView);
-            recipeNameTextView = itemView.findViewById(R.id.recipe_name_text_view);
-            recipeImageView = itemView.findViewById(R.id.recipe_image_view);
-
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            Toast.makeText(view.getContext(), "Clicked", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
     public RecipeCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recipe_card, parent, false);
-
         return new RecipeCardViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecipeCardViewHolder holder, int position) {
-        Recipe recipe = recipeList.get(position);
+        holder.recipe = recipeList.get(position);
 
-        holder.recipeNameTextView.setText(recipe.getName());
+        holder.recipeNameTextView.setText(holder.recipe.getName());
 
         int drawableResourceId;
-        if (TextUtils.isEmpty(recipe.getImage())) {
-            switch (recipe.getId()) {
+        if (TextUtils.isEmpty(holder.recipe.getImage())) {
+            switch (holder.recipe.getId()) {
                 case 1:
                     drawableResourceId = R.drawable.nutella_pie;
                     break;
@@ -86,15 +69,36 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCard
         } else {
             // TODO: 10/12/17 Convert the recipe image string to a drawable
             Glide.with(context)
-                    .load(recipe.getImage())
+                    .load(holder.recipe.getImage())
                     .into(holder.recipeImageView);
         }
-
-
     }
 
     @Override
     public int getItemCount() {
         return recipeList.size();
+    }
+
+    class RecipeCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        Recipe recipe;
+        ImageView recipeImageView;
+        TextView recipeNameTextView;
+
+        RecipeCardViewHolder(View itemView) {
+            super(itemView);
+            recipeNameTextView = itemView.findViewById(R.id.recipe_name_text_view);
+            recipeImageView = itemView.findViewById(R.id.recipe_image_view);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), RecipeDetailsActivity.class);
+            intent.putExtra(RECIPE_ID, recipe.getId());
+            intent.putExtra(RECIPE_NAME, recipe.getName());
+            view.getContext().startActivity(intent);
+        }
     }
 }
