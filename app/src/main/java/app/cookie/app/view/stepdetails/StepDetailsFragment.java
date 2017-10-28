@@ -1,9 +1,10 @@
-package app.cookie.app.view;
+package app.cookie.app.view.stepdetails;
 
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,9 @@ import com.cookie.app.R;
 import app.cookie.app.model.Step;
 import app.cookie.app.viewmodel.StepDetailsFragmentViewModel;
 
+import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
+
 public class StepDetailsFragment extends Fragment implements StepDetailsFragmentView {
 
     private StepDetailsFragmentViewModel viewModel;
@@ -25,7 +29,6 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     private ProgressBar progressBar;
     private Button previousStepButton;
     private Button nextStepButton;
-    private String recipeName;
 
     public StepDetailsFragment() {
         // Required empty public constructor
@@ -46,14 +49,14 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step_details, container, false);
-        progressBar = (ProgressBar) view.findViewById(R.id.step_details_progress_bar);
-        stepShortDescriptionTextView = (TextView) view.findViewById(R.id.step_short_description);
-        stepDescriptionTextView = (TextView) view.findViewById(R.id.step_description);
-//        previousStepButton = (Button) view.findViewById(R.id.previous_step_button);
-//        nextStepButton = (Button) view.findViewById(R.id.next_step_button);
-//
-//        previousStepButton.setOnClickListener(PreviousStepButtonClickListener);
-//        nextStepButton.setOnClickListener(NextStepButtonClickListener);
+        progressBar = view.findViewById(R.id.step_details_progress_bar);
+        stepShortDescriptionTextView = view.findViewById(R.id.step_short_description);
+        stepDescriptionTextView = view.findViewById(R.id.step_description);
+        previousStepButton = view.findViewById(R.id.previous_step_button);
+        nextStepButton = view.findViewById(R.id.next_step_button);
+
+        previousStepButton.setOnClickListener(PreviousStepButtonClickListener);
+        nextStepButton.setOnClickListener(NextStepButtonClickListener);
 
         return view;
     }
@@ -64,25 +67,19 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
         viewModel.onResume();
     }
 
-    //    View.OnClickListener PreviousStepButtonClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            viewModel.previousStepButtonClicked();
-//        }
-//    };
-//
-//    View.OnClickListener NextStepButtonClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            viewModel.nextStepButtonClicked();
-//        }
-//    };
-//
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        viewModel.fetchStepDetails();
-//    }
+    View.OnClickListener PreviousStepButtonClickListener = new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        viewModel.previousStepButtonClicked();
+    }
+    };
+
+    View.OnClickListener NextStepButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            viewModel.nextStepButtonClicked();
+        }
+    };
 
     @Override
     public void showProgress() {
@@ -100,44 +97,40 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
         stepDescriptionTextView.setText(step.getDescription());
     }
 
+    @Override
+    public void displayPreviousStepButton() {
+        previousStepButton.setVisibility(View.VISIBLE);
+    }
 
-//    @Override
-//    public void displayPreviousStepButton() {
-//        previousStepButton.setVisibility(View.VISIBLE);
-//    }
-//
-//    @Override
-//    public void hidePreviousStepButton() {
-//        previousStepButton.setVisibility(View.GONE);
-//    }
-//
-//    @Override
-//    public void displayNextStepButton() {
-//        nextStepButton.setVisibility(View.VISIBLE);
-//    }
-//
-//    @Override
-//    public void hideNextStepButton() {
-//        nextStepButton.setVisibility(View.GONE);
-//    }
+    @Override
+    public void hidePreviousStepButton() {
+        previousStepButton.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void displayNextStepButton() {
+        nextStepButton.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideNextStepButton() {
+        nextStepButton.setVisibility(View.GONE);
+    }
 
-//    @Override
-//    public void updateStepDetails(int stepId, int recipeId) {
-//        Bundle bundle = new Bundle();
-//        bundle.putInt(STEP_ID, stepId);
-//        bundle.putInt(RECIPE_ID, recipeId);
-//        bundle.putString(RECIPE_NAME, recipeName);
-//
-//        StepDetailsFragment fragment = StepDetailsFragment.newInstance();
-//        fragment.setArguments(bundle);
-//
-//        FragmentManager fragmentManager = this.getActivity().getSupportFragmentManager();
-//        fragmentManager.beginTransaction()
-//                .replace(R.id.fragment_step_details_container, fragment)
-//                .commit();
-//    }
+    @Override
+    public void updateStepDetails(int stepId, int recipeId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(STEP_ID, stepId);
+        bundle.putInt(RECIPE_ID, recipeId);
+
+        StepDetailsFragment fragment = StepDetailsFragment.newInstance();
+        fragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = this.getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.step_details_container, fragment)
+                .commit();
+    }
 
     private class MyMediaSession extends MediaSessionCompat.Callback {
 

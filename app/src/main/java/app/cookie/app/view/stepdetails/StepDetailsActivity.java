@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.stepdetails;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;

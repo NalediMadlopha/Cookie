@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.ingredients;
 
 
 import android.support.v7.widget.RecyclerView;

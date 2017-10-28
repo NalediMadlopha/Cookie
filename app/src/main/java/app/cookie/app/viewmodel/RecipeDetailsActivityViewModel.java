@@ -8,8 +8,8 @@ import android.os.Bundle;
 
 import app.cookie.app.Utils.Util;
 import app.cookie.app.model.Recipe;
-import app.cookie.app.view.RecipeDetailsActivity;
-import app.cookie.app.view.RecipeDetailsActivityView;
+import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
+import app.cookie.app.view.recipedetails.RecipeDetailsActivityView;
 
 import static android.content.Context.MODE_PRIVATE;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
@@ -19,7 +19,6 @@ public class RecipeDetailsActivityViewModel {
 
     private final RecipeDetailsActivityView view;
     private final Bundle bundle;
-    private int recipeId;
     private String recipeName;
     private RecipeDetailsActivity recipeDetailsActivity;
 
@@ -29,8 +28,9 @@ public class RecipeDetailsActivityViewModel {
         this.bundle = bundle;
     }
 
-    public void onResume(Context context) {
+    public void onResume(Context context, boolean isTablet) {
         SharedPreferences sharedPreferences;
+        int recipeId;
 
         if (bundle != null) {
             recipeId = bundle.getInt(RECIPE_ID, 0);
@@ -42,7 +42,7 @@ public class RecipeDetailsActivityViewModel {
             recipeName = sharedPreferences.getString(RECIPE_NAME, "");
         }
 
-        new FetchRecipeDetailsTask(context, view, recipeId, recipeName).execute();
+        new FetchRecipeDetailsTask(context, view, isTablet, recipeId, recipeName).execute();
     }
 
     public void onCreate() {
@@ -62,12 +62,14 @@ public class RecipeDetailsActivityViewModel {
 
         private Context context;
         private final RecipeDetailsActivityView view;
+        private final boolean isTablet;
         private final int recipeId;
         private String recipeName;
 
-        FetchRecipeDetailsTask(Context context, RecipeDetailsActivityView view, int recipeId, String recipeName) {
+        FetchRecipeDetailsTask(Context context, RecipeDetailsActivityView view, boolean isTablet, int recipeId, String recipeName) {
             this.context = context;
             this.view = view;
+            this.isTablet = isTablet;
             this.recipeId = recipeId;
             this.recipeName = recipeName;
         }
@@ -88,6 +90,11 @@ public class RecipeDetailsActivityViewModel {
             super.onPostExecute(recipe);
             view.displayIngredients(recipe.getIngredients());
             view.displaySteps(recipeId, recipeName, recipe.getSteps());
+
+            if (isTablet) {
+                view.displayStepDetails(recipeId, recipeName, 0);
+            }
+
             view.hideProgress();
         }
     }

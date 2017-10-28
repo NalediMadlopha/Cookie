@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.recipes;
 
 /**
  * Code from the Internet
@@ -10,7 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 
-class AutoGridLayoutManager extends GridLayoutManager {
+public class AutoGridLayoutManager extends GridLayoutManager {
 
     private int mColumnWidth;
     private boolean mColumnWidthChanged = true;

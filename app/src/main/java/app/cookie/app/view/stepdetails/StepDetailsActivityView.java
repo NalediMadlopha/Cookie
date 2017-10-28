@@ -1,7 +1,5 @@
-package app.cookie.app.view;
+package app.cookie.app.view.stepdetails;
 
-
-import app.cookie.app.model.Step;
 
 public interface StepDetailsActivityView {
 

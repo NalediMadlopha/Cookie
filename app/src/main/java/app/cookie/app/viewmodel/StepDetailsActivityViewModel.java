@@ -3,7 +3,7 @@ package app.cookie.app.viewmodel;
 
 import android.os.Bundle;
 
-import app.cookie.app.view.StepDetailsActivityView;
+import app.cookie.app.view.stepdetails.StepDetailsActivityView;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;

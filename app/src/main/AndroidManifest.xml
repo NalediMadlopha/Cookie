@@ -8,8 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="app.cookie.app.view.RecipeActivity">
+        android:theme="@style/AppTheme"
+        android:name="app.cookie.app.dependency.App">
+        <activity android:name="app.cookie.app.view.recipes.RecipeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,10 +18,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="app.cookie.app.view.RecipeDetailsActivity"
-            android:parentActivityName="app.cookie.app.view.RecipeActivity" />
-        <activity android:name="app.cookie.app.view.StepDetailsActivity"
-            android:parentActivityName="app.cookie.app.view.RecipeDetailsActivity"></activity>
+            android:name="app.cookie.app.view.recipedetails.RecipeDetailsActivity"
+            android:parentActivityName="app.cookie.app.view.recipes.RecipeActivity" />
+        <activity android:name="app.cookie.app.view.stepdetails.StepDetailsActivity"
+            android:parentActivityName="app.cookie.app.view.recipedetails.RecipeDetailsActivity"></activity>
     </application>
 
 </manifest>

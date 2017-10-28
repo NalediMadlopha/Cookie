@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.recipes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.cookie.app.R;
 import java.util.List;
 
 import app.cookie.app.model.Recipe;
+import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;

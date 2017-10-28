@@ -3,31 +3,24 @@ package app.cookie.app.viewmodel;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
-import app.cookie.app.data.ApiService;
+import app.cookie.app.Utils.Util;
+import app.cookie.app.service.WebService;
 import app.cookie.app.model.Recipe;
-import app.cookie.app.view.RecipeFragmentView;
+import app.cookie.app.view.recipes.RecipeFragmentView;
 
 public class RecipeFragmentViewModel {
 
     private final Context context;
     private final RecipeFragmentView view;
-    private final ApiService apiService;
+    private final WebService webService;
 
-    public RecipeFragmentViewModel(Context context, RecipeFragmentView view, ApiService apiService) {
+    public RecipeFragmentViewModel(Context context, RecipeFragmentView view, WebService webService) {
         this.context = context;
         this.view = view;
-        this.apiService = apiService;
+        this.webService = webService;
     }
 
     public void onResume() {
@@ -57,24 +50,7 @@ public class RecipeFragmentViewModel {
         }
 
         private List<Recipe> getRecipesLocally() {
-            List<Recipe> recipeList = new ArrayList<>();
-
-            try {
-                InputStream inputStream = context.getAssets().open("recipes_data.json");
-                int size = inputStream.available();
-                byte[] buffer = new byte[size];
-                // TODO: 10/12/17 Check the value returned fromt the input stream
-                inputStream.read(buffer);
-                inputStream.close();
-                String json = new String(buffer, "UTF-8");
-
-                Type typeRecipes = new TypeToken<ArrayList<Recipe>>(){}.getType();
-                recipeList = new Gson().fromJson(json, typeRecipes);
-            } catch (IOException e) {
-                Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
-            }
-
-            return recipeList;
+            return Util.getAllRecipes(context);
         }
 
         @Override

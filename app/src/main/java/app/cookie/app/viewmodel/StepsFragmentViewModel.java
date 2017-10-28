@@ -6,7 +6,7 @@ import android.os.Bundle;
 import java.util.List;
 
 import app.cookie.app.model.Step;
-import app.cookie.app.view.StepsFragmentView;
+import app.cookie.app.view.steps.StepsFragmentView;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;

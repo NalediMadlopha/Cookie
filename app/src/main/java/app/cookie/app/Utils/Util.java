@@ -18,6 +18,27 @@ import app.cookie.app.model.Step;
 
 public class Util {
 
+    public static List<Recipe> getAllRecipes(Context context) {
+        List<Recipe> recipeList = new ArrayList<>();
+
+        try {
+            InputStream inputStream = context.getAssets().open("recipes_data.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            // TODO: 10/12/17 Check the value returned fromt the input stream
+            inputStream.read(buffer);
+            inputStream.close();
+            String json = new String(buffer, "UTF-8");
+
+            Type typeRecipes = new TypeToken<ArrayList<Recipe>>(){}.getType();
+            recipeList = new Gson().fromJson(json, typeRecipes);
+        } catch (IOException e) {
+            Log.e(Util.class.getSimpleName(), e.getMessage(), e);
+        }
+
+        return recipeList;
+    }
+
     public static Recipe getRecipe(Context context, int recipeId) {
         List<Recipe> recipeList = new ArrayList<>();
 

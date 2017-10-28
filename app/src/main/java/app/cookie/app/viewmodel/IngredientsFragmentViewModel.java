@@ -6,7 +6,7 @@ import android.os.Bundle;
 import java.util.List;
 
 import app.cookie.app.model.Ingredient;
-import app.cookie.app.view.IngredientFragmentView;
+import app.cookie.app.view.ingredients.IngredientFragmentView;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.INGREDIENTS;
 

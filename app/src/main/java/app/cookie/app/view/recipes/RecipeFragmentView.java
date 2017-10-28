@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.recipes;
 
 
 import java.util.List;

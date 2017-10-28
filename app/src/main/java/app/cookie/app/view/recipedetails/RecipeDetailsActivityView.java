@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.recipedetails;
 
 
 import java.util.List;
@@ -17,4 +17,6 @@ public interface RecipeDetailsActivityView {
     void displayIngredients(List<Ingredient> ingredients);
 
     void displaySteps(int recipeId, String recipeName, List<Step> steps);
+
+    void displayStepDetails(int recipeId, String recipeName, int stepId);
 }

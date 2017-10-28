@@ -1,4 +1,4 @@
-package app.cookie.app.data;
+package app.cookie.app.service;
 
 import app.cookie.app.stringdef.CookieConstants;
 import retrofit2.Retrofit;
@@ -15,7 +15,7 @@ public class RetroClient {
                 .build();
     }
 
-    public static ApiService getApiService() {
-        return getRetrofitInstance().create(ApiService.class);
+    public static WebService getApiService() {
+        return getRetrofitInstance().create(WebService.class);
     }
 }

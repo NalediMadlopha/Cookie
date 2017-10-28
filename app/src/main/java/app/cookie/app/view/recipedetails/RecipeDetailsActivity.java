@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.recipedetails;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -14,12 +14,16 @@ import java.util.List;
 
 import app.cookie.app.model.Ingredient;
 import app.cookie.app.model.Step;
+import app.cookie.app.view.stepdetails.StepDetailsFragment;
+import app.cookie.app.view.steps.StepsFragment;
+import app.cookie.app.view.ingredients.IngredientsFragment;
 import app.cookie.app.viewmodel.RecipeDetailsActivityViewModel;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.INGREDIENTS;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
 import static app.cookie.app.stringdef.CookieConstants.KEY.STEPS;
+import static app.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDetailsActivityView {
 
@@ -27,6 +31,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     private ProgressBar progressBar;
     private FrameLayout ingredientsContainer;
     private FrameLayout stepsContainer;
+    private boolean twoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +41,6 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         ingredientsContainer = findViewById(R.id.ingredient_list_container);
         stepsContainer = findViewById(R.id.step_list_container);
 
-        int recipeId = getIntent().getIntExtra(RECIPE_ID, 0);
-        String recipeName = getIntent().getStringExtra(RECIPE_NAME);
-
         viewModel = new RecipeDetailsActivityViewModel(this, getIntent().getExtras());
         viewModel.onCreate();
     }
@@ -46,7 +48,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     @Override
     protected void onResume() {
         super.onResume();
-        viewModel.onResume(this);
+        viewModel.onResume(this, getResources().getBoolean(R.bool.isTablet));
     }
 
     @Override
@@ -99,6 +101,22 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.step_list_container, stepsFragment)
+                .commit();
+    }
+
+    @Override
+    public void displayStepDetails(int recipeId, String recipeName, int stepId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(RECIPE_ID, recipeId);
+        bundle.putString(RECIPE_NAME, recipeName);
+        bundle.putInt(STEP_ID, stepId);
+
+        StepDetailsFragment stepDetailsFragment = new StepDetailsFragment();
+        stepDetailsFragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.step_details_container, stepDetailsFragment)
                 .commit();
     }
 }

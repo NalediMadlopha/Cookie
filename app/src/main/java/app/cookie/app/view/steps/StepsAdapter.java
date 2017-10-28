@@ -1,4 +1,4 @@
-package app.cookie.app.view;
+package app.cookie.app.view.steps;
 
 
 import android.content.Context;
@@ -14,6 +14,7 @@ import com.cookie.app.R;
 import java.util.List;
 
 import app.cookie.app.model.Step;
+import app.cookie.app.view.stepdetails.StepDetailsActivity;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
