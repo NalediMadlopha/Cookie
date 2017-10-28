@@ -1,4 +1,4 @@
-package app.cookie.app.view.recipes;
+package app.cookie.app._new_architecture.view.recipelist;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,19 +15,19 @@ import com.cookie.app.R;
 
 import java.util.List;
 
-import app.cookie.app.model.Recipe;
+import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
 
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeCardViewHolder> {
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 
     private final List<Recipe> recipeList;
     private Context context;
 
-    RecipeAdapter(Context context, List<Recipe> recipeList) {
+    RecipeListAdapter(Context context, List<Recipe> recipeList) {
         this.context = context;
         this.recipeList = recipeList;
     }

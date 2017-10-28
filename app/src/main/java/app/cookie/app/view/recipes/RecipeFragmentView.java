@@ -3,7 +3,7 @@ package app.cookie.app.view.recipes;
 
 import java.util.List;
 
-import app.cookie.app.model.Recipe;
+import app.cookie.app._new_architecture.model.Recipe;
 
 public interface RecipeFragmentView {
 

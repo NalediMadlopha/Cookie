@@ -5,7 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import app.cookie.app.model.Recipe;
+import app.cookie.app._new_architecture.model.Recipe;
 import dagger.Module;
 
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;

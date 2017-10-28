@@ -1,4 +1,4 @@
-package app.cookie.app.dependency;
+package app.cookie.app._new_architecture.dependency;
 
 import android.app.Application;
 

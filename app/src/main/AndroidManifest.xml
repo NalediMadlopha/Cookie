@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cookie.app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="app.cookie.app.dependency.App">
-        <activity android:name="app.cookie.app.view.recipes.RecipeActivity">
+        android:name="app.cookie.app._new_architecture.dependency.App">
+        <activity android:name="app.cookie.app._new_architecture.view.recipelist.RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +21,7 @@
         </activity>
         <activity
             android:name="app.cookie.app.view.recipedetails.RecipeDetailsActivity"
-            android:parentActivityName="app.cookie.app.view.recipes.RecipeActivity" />
+            android:parentActivityName="app.cookie.app._new_architecture.view.recipelist.RecipeListActivity" />
         <activity android:name="app.cookie.app.view.stepdetails.StepDetailsActivity"
             android:parentActivityName="app.cookie.app.view.recipedetails.RecipeDetailsActivity"></activity>
     </application>

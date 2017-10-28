@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.cookie.app.Utils.Util;
-import app.cookie.app.model.Recipe;
+import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app.model.Step;
 import app.cookie.app.view.stepdetails.StepDetailsFragmentView;
 

@@ -1,4 +1,4 @@
-package app.cookie.app.view.recipes;
+package app.cookie.app._new_architecture.view.recipelist;
 
 /**
  * Code from the Internet

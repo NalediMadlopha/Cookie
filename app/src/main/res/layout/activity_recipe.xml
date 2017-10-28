@@ -4,4 +4,4 @@
     android:id="@+id/recipe_list_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="app.cookie.app.view.recipes.RecipeFragment" />
+    android:name="app.cookie.app._new_architecture.view.recipelist.RecipeListFragment" />

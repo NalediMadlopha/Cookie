@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.cookie.app.model.Recipe;
+import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app.model.Step;
 
 public class Util {

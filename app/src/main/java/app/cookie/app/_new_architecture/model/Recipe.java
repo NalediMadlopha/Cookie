@@ -1,4 +1,4 @@
-package app.cookie.app.model;
+package app.cookie.app._new_architecture.model;
 
 
 import android.arch.persistence.room.Entity;
@@ -8,6 +8,9 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import app.cookie.app.model.Ingredient;
+import app.cookie.app.model.Step;
 
 @Entity
 public class Recipe implements Parcelable {

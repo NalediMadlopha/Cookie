@@ -6,20 +6,22 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
+import app.cookie.app._new_architecture.viewmodel.RecipeListViewModel;
+
 
 public class RecipeViewModelFactory implements ViewModelProvider.Factory {
 
-    private RecipeViewModel viewModel;
+    private RecipeListViewModel viewModel;
 
     @Inject
-    public RecipeViewModelFactory(RecipeViewModel viewModel) {
+    public RecipeViewModelFactory(RecipeListViewModel viewModel) {
         this.viewModel = viewModel;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if(modelClass.isAssignableFrom(RecipeViewModel.class)) {
+        if(modelClass.isAssignableFrom(RecipeListViewModel.class)) {
             return (T) viewModel;
         }
         throw new IllegalArgumentException("Unknown class name");

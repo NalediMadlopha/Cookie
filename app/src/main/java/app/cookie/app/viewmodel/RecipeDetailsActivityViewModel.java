@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import app.cookie.app.Utils.Util;
-import app.cookie.app.model.Recipe;
+import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivityView;
 

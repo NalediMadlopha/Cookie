@@ -1,5 +1,6 @@
 package app.cookie.app.service;
 
+import app.cookie.app._new_architecture.service.WebService;
 import app.cookie.app.stringdef.CookieConstants;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

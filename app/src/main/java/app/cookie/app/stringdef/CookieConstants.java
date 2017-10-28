@@ -12,7 +12,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public @interface CookieConstants {
 
     @interface URL {
-        String BASE_URL = "http://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
+        String BASE_URL = "http://d17h27t6h515a5.cloudfront.net";
+        String PATH_URL = "/topher/2017/May/59121517_baking/baking.json";
     }
 
     @interface KEY {
