@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import app.cookie.app.Utils.Util;
-import app.cookie.app._new_architecture.service.WebService;
+import app.cookie.app._new_architecture.dataservice.WebService;
 import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app.view.recipes.RecipeFragmentView;
 

@@ -1,27 +1,32 @@
 package app.cookie.app._new_architecture.model;
 
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import app.cookie.app.model.Ingredient;
-import app.cookie.app.model.Step;
+import app.cookie.app._new_architecture.database.Converters;
 
-@Entity
+@Entity(tableName = "recipe")
+@TypeConverters(Converters.class)
 public class Recipe implements Parcelable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name = "name")
     private String name;
+    @ColumnInfo(name = "servings")
     private String servings;
+    @ColumnInfo(name = "image")
     private String image;
-    private List<Ingredient> ingredients ;
-    private List<Step> steps;
+    private List<Ingredient> ingredients = null;
+    private List<Step> steps = null;
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
         @Override

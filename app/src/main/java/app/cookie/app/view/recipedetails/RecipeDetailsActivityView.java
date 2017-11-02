@@ -3,8 +3,8 @@ package app.cookie.app.view.recipedetails;
 
 import java.util.List;
 
-import app.cookie.app.model.Ingredient;
-import app.cookie.app.model.Step;
+import app.cookie.app._new_architecture.model.Ingredient;
+import app.cookie.app._new_architecture.model.Step;
 
 public interface RecipeDetailsActivityView {
 
