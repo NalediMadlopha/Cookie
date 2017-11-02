@@ -3,7 +3,7 @@ package app.cookie.app._new_architecture.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
+import android.os.AsyncTask;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,9 +11,10 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import app.cookie.app._new_architecture.database.RecipeDao;
+import app.cookie.app._new_architecture.dataservice.WebService;
 import app.cookie.app._new_architecture.dependency.App;
 import app.cookie.app._new_architecture.model.Recipe;
-import app.cookie.app._new_architecture.service.WebService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,20 +24,28 @@ public class RecipeRepository {
 
     @Inject
     WebService webService;
+    @Inject
+    RecipeDao recipeDao;
 
     public RecipeRepository() {
         App.appComponent().inject(this);
     }
 
     public LiveData<List<Recipe>> getRecipes() {
+        updateRecipes();
 
+        return recipeDao.retrieve();
+    }
+
+    private void updateRecipes() {
         final MutableLiveData<List<Recipe>> data = new MutableLiveData<>();
         webService.getRecipes().enqueue(new Callback<Recipe[]>() {
             @Override
             public void onResponse(Call<Recipe[]> call, Response<Recipe[]> response) {
-                Log.i(this.getClass().getSimpleName(), response.body()[0].getName());
                 data.setValue(Arrays.asList(response.body()));
-                Log.i(this.getClass().getSimpleName(), data.getValue().get(0).getName());
+                AsyncTask.execute(() -> {
+                    recipeDao.insert(data.getValue());
+                });
             }
 
             @Override
@@ -44,6 +53,5 @@ public class RecipeRepository {
                 // I have left out the error case for brevity
             }
         });
-        return data;
     }
 }
