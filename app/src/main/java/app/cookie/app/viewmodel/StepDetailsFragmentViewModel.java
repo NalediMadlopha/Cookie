@@ -10,7 +10,7 @@ import java.util.List;
 
 import app.cookie.app.Utils.Util;
 import app.cookie.app._new_architecture.model.Recipe;
-import app.cookie.app.model.Step;
+import app.cookie.app._new_architecture.model.Step;
 import app.cookie.app.view.stepdetails.StepDetailsFragmentView;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;

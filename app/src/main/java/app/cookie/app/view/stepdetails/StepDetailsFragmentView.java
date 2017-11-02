@@ -1,7 +1,7 @@
 package app.cookie.app.view.stepdetails;
 
 
-import app.cookie.app.model.Step;
+import app.cookie.app._new_architecture.model.Step;
 
 public interface StepDetailsFragmentView {
 
