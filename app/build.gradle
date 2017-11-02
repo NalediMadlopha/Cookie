@@ -14,6 +14,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 includeCompileClasspath false
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
     }
@@ -43,18 +44,14 @@ android {
         implementation 'com.github.bumptech.glide:glide:4.2.0'
         compile 'com.squareup.retrofit2:converter-gson:2.3.0'
         compile 'com.squareup.retrofit2:retrofit:2.3.0'
-        // For Lifecycles
-//    implementation 'android.arch.lifecycle:runtime:1.0.3'
-//    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-rc1"
-//    implementation 'android.arch.lifecycle:common-java8:1.0.0-rc1'
         // For LiveData and ViewModel
         implementation 'android.arch.lifecycle:extensions:1.0.0-rc1'
         testImplementation 'android.arch.core:core-testing:1.0.0-rc1'
         implementation 'android.arch.lifecycle:reactivestreams:1.0.0-rc1'
         // For Room
         implementation 'android.arch.persistence.room:runtime:1.0.0-rc1'
-//    // For Paging
-//    implementation 'android.arch.paging:runtime:1.0.0-alpha3'
+        annotationProcessor 'android.arch.persistence.room:compiler:1.0.0-rc1'
+        androidTestImplementation 'android.arch.persistence.room:testing:1.0.0-rc1'
 ////    // Dagger
 //        compile 'com.google.dagger:dagger:2.12'
         compile 'com.google.dagger:dagger-android:2.12'

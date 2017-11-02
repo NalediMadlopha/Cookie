@@ -1,11 +1,14 @@
 package app.cookie.app._new_architecture.dependency;
 
 import android.arch.lifecycle.ViewModelProvider;
+import android.content.Context;
 
 import javax.inject.Inject;
 
+import app.cookie.app._new_architecture.database.AppDatabase;
+import app.cookie.app._new_architecture.database.RecipeDao;
+import app.cookie.app._new_architecture.dataservice.WebService;
 import app.cookie.app._new_architecture.repository.RecipeRepository;
-import app.cookie.app._new_architecture.service.WebService;
 import app.cookie.app.viewmodel.RecipeViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
@@ -17,7 +20,15 @@ import static app.cookie.app.stringdef.CookieConstants.URL.BASE_URL;
 @Module
 public class AppModule {
 
-    AppModule() {
+    private final Context context;
+
+    AppModule(Context context) {
+        this.context = context;
+    }
+
+    @Provides
+    public Context context() {
+        return context;
     }
 
     @Provides
@@ -38,5 +49,10 @@ public class AppModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(WebService.class);
+    }
+
+    @Provides
+    RecipeDao provideRecipeDao() {
+        return AppDatabase.getInstance(context).recipeDao();
     }
 }

@@ -1,6 +1,7 @@
 package app.cookie.app._new_architecture.dependency;
 
 import android.app.Application;
+import android.content.Context;
 
 
 public class App extends Application {
@@ -10,16 +11,16 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = getAppComponent();
+        appComponent = getAppComponent(this);
     }
 
     public static AppComponent appComponent() {
         return appComponent;
     }
 
-    private static AppComponent getAppComponent() {
+    private static AppComponent getAppComponent(Context context) {
         return DaggerAppComponent.builder()
-                .appModule(new AppModule())
+                .appModule(new AppModule(context))
                 .build();
     }
 }

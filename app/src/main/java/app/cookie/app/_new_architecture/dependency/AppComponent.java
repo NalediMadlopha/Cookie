@@ -1,5 +1,6 @@
 package app.cookie.app._new_architecture.dependency;
 
+import app.cookie.app._new_architecture.database.AppDatabase;
 import app.cookie.app._new_architecture.repository.RecipeRepository;
 import app.cookie.app._new_architecture.view.recipelist.RecipeListActivity;
 import app.cookie.app._new_architecture.viewmodel.RecipeListViewModel;
@@ -13,5 +14,7 @@ public interface AppComponent {
     void inject(RecipeListViewModel viewModel);
 
     void inject(RecipeRepository recipeRepository);
+
+    void inject(AppDatabase appDatabase);
 
 }
