@@ -14,7 +14,7 @@ import com.cookie.app.R;
 
 import java.util.List;
 
-import app.cookie.app.model.Ingredient;
+import app.cookie.app._new_architecture.model.Ingredient;
 import app.cookie.app.viewmodel.IngredientsFragmentViewModel;
 
 public class IngredientsFragment extends Fragment implements IngredientFragmentView {

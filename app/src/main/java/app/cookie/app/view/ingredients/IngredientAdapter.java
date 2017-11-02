@@ -11,7 +11,7 @@ import com.cookie.app.R;
 
 import java.util.List;
 
-import app.cookie.app.model.Ingredient;
+import app.cookie.app._new_architecture.model.Ingredient;
 
 class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
 

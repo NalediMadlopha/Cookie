@@ -1,16 +1,34 @@
-package app.cookie.app.model;
+package app.cookie.app._new_architecture.model;
 
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity(tableName = "ingredient", foreignKeys = {
+        @ForeignKey(
+                entity = Recipe.class,
+                parentColumns = "id",
+                childColumns = "recipe_id",
+                onUpdate = ForeignKey.CASCADE,
+                onDelete = ForeignKey.CASCADE
+        )
+}, indices = @Index("recipe_id"))
 public class Ingredient implements Parcelable {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name = "ingredient")
     private String ingredient;
+    @ColumnInfo(name = "quantity")
     private String quantity;
+    @ColumnInfo(name = "measure")
     private String measure;
-
+    @ColumnInfo(name = "recipe_id")
     private int recipeId;
 
     public static final Parcelable.Creator<Ingredient> CREATOR = new Parcelable.Creator<Ingredient>() {
