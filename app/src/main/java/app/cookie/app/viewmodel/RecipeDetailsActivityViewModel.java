@@ -12,8 +12,8 @@ import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivityView;
 
 import static android.content.Context.MODE_PRIVATE;
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
 
 public class RecipeDetailsActivityViewModel {
 

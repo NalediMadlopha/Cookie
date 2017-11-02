@@ -8,7 +8,7 @@ import java.util.List;
 import app.cookie.app._new_architecture.model.Ingredient;
 import app.cookie.app.view.ingredients.IngredientFragmentView;
 
-import static app.cookie.app.stringdef.CookieConstants.KEY.INGREDIENTS;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.INGREDIENTS;
 
 public class IngredientsFragmentViewModel {
 

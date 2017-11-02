@@ -8,8 +8,8 @@ import com.cookie.app.R;
 
 import app.cookie.app.viewmodel.StepDetailsActivityViewModel;
 
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
-import static app.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.STEP_ID;
 
 public class StepDetailsActivity extends AppCompatActivity implements StepDetailsActivityView {
 

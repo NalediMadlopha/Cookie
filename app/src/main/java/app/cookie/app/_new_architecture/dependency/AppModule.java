@@ -15,7 +15,7 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static app.cookie.app.stringdef.CookieConstants.URL.BASE_URL;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.URL.BASE_URL;
 
 @Module
 public class AppModule {

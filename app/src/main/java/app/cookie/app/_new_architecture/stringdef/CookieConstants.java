@@ -1,10 +1,10 @@
-package app.cookie.app.stringdef;
+package app.cookie.app._new_architecture.stringdef;
 
 import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 
-import static app.cookie.app.stringdef.CookieConstants.URL.BASE_URL;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.URL.BASE_URL;
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 @Retention(SOURCE)

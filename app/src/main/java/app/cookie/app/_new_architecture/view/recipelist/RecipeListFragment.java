@@ -10,9 +10,6 @@ import android.view.ViewGroup;
 
 import com.cookie.app.R;
 
-import java.util.List;
-
-import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app._new_architecture.viewmodel.RecipeListViewModel;
 
 
@@ -20,7 +17,6 @@ public class RecipeListFragment extends android.support.v4.app.Fragment {
 
     private RecipeListViewModel viewModel;
     private RecyclerView recipeRecyclerView;
-    private List<Recipe> recipes;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

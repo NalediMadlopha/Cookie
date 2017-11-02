@@ -16,9 +16,9 @@ import java.util.List;
 import app.cookie.app._new_architecture.model.Step;
 import app.cookie.app.view.stepdetails.StepDetailsActivity;
 
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
-import static app.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.STEP_ID;
 
 class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHolder> {
 

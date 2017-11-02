@@ -19,11 +19,11 @@ import app.cookie.app.view.steps.StepsFragment;
 import app.cookie.app.view.ingredients.IngredientsFragment;
 import app.cookie.app.viewmodel.RecipeDetailsActivityViewModel;
 
-import static app.cookie.app.stringdef.CookieConstants.KEY.INGREDIENTS;
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
-import static app.cookie.app.stringdef.CookieConstants.KEY.STEPS;
-import static app.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.INGREDIENTS;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.STEPS;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.STEP_ID;
 
 public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDetailsActivityView {
 

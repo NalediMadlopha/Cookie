@@ -18,8 +18,8 @@ import java.util.List;
 import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
 
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
-import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
 
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
