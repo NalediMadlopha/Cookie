@@ -15,7 +15,7 @@ import com.cookie.app.R;
 
 import java.util.List;
 
-import app.cookie.app.model.Step;
+import app.cookie.app._new_architecture.model.Step;
 import app.cookie.app.viewmodel.StepsFragmentViewModel;
 
 public class StepsFragment extends Fragment implements StepsFragmentView {
