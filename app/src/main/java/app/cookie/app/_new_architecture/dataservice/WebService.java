@@ -1,4 +1,4 @@
-package app.cookie.app._new_architecture.service;
+package app.cookie.app._new_architecture.dataservice;
 
 
 import app.cookie.app._new_architecture.model.Recipe;
