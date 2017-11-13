@@ -1,4 +1,4 @@
-package app.cookie.app.viewmodel;
+package app.cookie.app._new_architecture.viewmodel.factory;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
@@ -9,12 +9,12 @@ import javax.inject.Inject;
 import app.cookie.app._new_architecture.viewmodel.RecipeListViewModel;
 
 
-public class RecipeViewModelFactory implements ViewModelProvider.Factory {
+public class RecipeListViewModelFactory implements ViewModelProvider.Factory {
 
     private RecipeListViewModel viewModel;
 
     @Inject
-    public RecipeViewModelFactory(RecipeListViewModel viewModel) {
+    public RecipeListViewModelFactory(RecipeListViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

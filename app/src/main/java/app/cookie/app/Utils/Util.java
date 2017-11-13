@@ -1,7 +1,9 @@
 package app.cookie.app.Utils;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -16,7 +18,17 @@ import java.util.List;
 import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app._new_architecture.model.Step;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Util {
+
+    public static void savePreferences(Activity activity, String tag, int recipeId) {
+        SharedPreferences sharedPreferences;
+        sharedPreferences = activity.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(tag, recipeId);
+        editor.apply();
+    }
 
     public static List<Recipe> getAllRecipes(Context context) {
         List<Recipe> recipeList = new ArrayList<>();

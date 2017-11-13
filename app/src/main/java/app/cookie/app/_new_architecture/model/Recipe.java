@@ -3,6 +3,7 @@ package app.cookie.app._new_architecture.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
@@ -40,6 +41,7 @@ public class Recipe implements Parcelable {
         }
     };
 
+    @Ignore
     public Recipe() {
     }
 
@@ -85,7 +87,6 @@ public class Recipe implements Parcelable {
     public void setServings(String servings) {
         this.servings = servings;
     }
-
 
     public String getServings() {
         return servings;

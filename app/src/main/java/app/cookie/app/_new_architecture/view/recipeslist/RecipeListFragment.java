@@ -1,4 +1,4 @@
-package app.cookie.app._new_architecture.view.recipelist;
+package app.cookie.app._new_architecture.view.recipeslist;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -17,6 +17,10 @@ public class RecipeListFragment extends android.support.v4.app.Fragment {
 
     private RecipeListViewModel viewModel;
     private RecyclerView recipeRecyclerView;
+
+    public RecipeListFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

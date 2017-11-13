@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="app.cookie.app._new_architecture.dependency.App">
-        <activity android:name="app.cookie.app._new_architecture.view.recipelist.RecipeListActivity">
+        <activity android:name="app.cookie.app._new_architecture.view.recipeslist.RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="app.cookie.app.view.recipedetails.RecipeDetailsActivity"
-            android:parentActivityName="app.cookie.app._new_architecture.view.recipelist.RecipeListActivity" />
+            android:name="app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity"
+            android:parentActivityName="app.cookie.app._new_architecture.view.recipeslist.RecipeListActivity" />
         <activity android:name="app.cookie.app.view.stepdetails.StepDetailsActivity"
-            android:parentActivityName="app.cookie.app.view.recipedetails.RecipeDetailsActivity"></activity>
+            android:parentActivityName="app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package app.cookie.app.view.ingredients;
+package app.cookie.app._new_architecture.view.recipedetails.ingredientslist;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +13,11 @@ import java.util.List;
 
 import app.cookie.app._new_architecture.model.Ingredient;
 
-class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
+class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsListAdapter.IngredientViewHolder> {
 
     private final List<Ingredient> ingredients;
 
-    public IngredientAdapter(List<Ingredient> ingredients) {
+    public IngredientsListAdapter(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 

@@ -4,13 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/recipe_details_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="visible" />
+    <!--<ProgressBar-->
+        <!--android:id="@+id/recipe_details_progress_bar"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:visibility="visible" />-->
+
+    <!--<fragment-->
+        <!--android:id="@+id/ingredient_list_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:name="app.cookie.app._new_architecture.view.recipedetails.ingredientslist.IngredientsListFragment"/>-->
+
 
     <FrameLayout
         android:id="@+id/ingredient_list_container"
@@ -25,5 +32,13 @@
         android:layout_below="@+id/ingredient_list_container"
         android:layout_centerHorizontal="true"
         android:visibility="visible" />
+
+    <!--<fragment-->
+        <!--android:id="@+id/step_details_container"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_below="@+id/ingredient_list_container"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:name="app.cookie.app._new_architecture.view.recipedetails.stepslist.StepsListFragment" />-->
 
 </RelativeLayout>

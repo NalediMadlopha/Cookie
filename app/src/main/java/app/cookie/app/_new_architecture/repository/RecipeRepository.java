@@ -34,7 +34,11 @@ public class RecipeRepository {
     public LiveData<List<Recipe>> getRecipes() {
         updateRecipes();
 
-        return recipeDao.retrieve();
+        return recipeDao.getRecipesMinimal();
+    }
+
+    public LiveData<Recipe> getRecipe(int recipeId) {
+        return recipeDao.getRecipe(recipeId);
     }
 
     private void updateRecipes() {
@@ -44,7 +48,7 @@ public class RecipeRepository {
             public void onResponse(Call<Recipe[]> call, Response<Recipe[]> response) {
                 data.setValue(Arrays.asList(response.body()));
                 AsyncTask.execute(() -> {
-                    recipeDao.insert(data.getValue());
+                    recipeDao.insertAll(data.getValue());
                 });
             }
 
