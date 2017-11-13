@@ -19,6 +19,7 @@ import app.cookie.app._new_architecture.model.Recipe;
 import app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity;
 
 import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
 
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
@@ -96,6 +97,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public void onClick(View view) {
             Intent intent = new Intent(view.getContext(), RecipeDetailsActivity.class);
             intent.putExtra(RECIPE_ID, recipe.getId());
+            intent.putExtra(RECIPE_NAME, recipe.getName());
             view.getContext().startActivity(intent);
         }
     }

@@ -19,11 +19,14 @@ import app.cookie.app._new_architecture.viewmodel.factory.RecipeDetailsViewModel
 import app.cookie.app.view.stepdetails.StepDetailsFragment;
 
 import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
 
 public class RecipeDetailsActivity extends AppCompatActivity {
 
     @Inject
     RecipeDetailsViewModelFactory recipeDetailsViewModelFactory;
+    private int recipeId;
+    private String recipeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +34,33 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_details);
         App.appComponent().inject(this);
 
-        int recipeId;
+        setupScreenData();
+        setupViewModel();
+        setupUI();
+    }
+
+    private void setupScreenData() {
         if (getIntent().getExtras() != null) {
             recipeId = getIntent().getExtras().getInt(RECIPE_ID);
             Util.savePreferences(this, RECIPE_ID, recipeId);
+
+            recipeName = getIntent().getExtras().getString(RECIPE_NAME);
+            // TODO: 11/13/17 Replace recipe id with recipe name
+            Util.savePreferences(this, RECIPE_NAME, recipeId);
         } else {
             SharedPreferences sharedPreferences = this.getPreferences(MODE_PRIVATE);
             recipeId = sharedPreferences.getInt(RECIPE_ID, 0);
+            recipeName = String.valueOf(sharedPreferences.getInt(RECIPE_ID, 0));
         }
+    }
 
+    private void setupViewModel() {
         RecipeDetailsViewModel viewModel = ViewModelProviders.of(this, recipeDetailsViewModelFactory).get(RecipeDetailsViewModel.class);
         viewModel.init(recipeId);
+    }
+
+    private void setupUI() {
+        setupScreenTitle(recipeName);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -63,6 +82,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
             fragmentManager.beginTransaction()
                     .replace(R.id.step_details_container, stepDetailsFragment)
                     .commit();
+        }
+    }
+
+    public void setupScreenTitle(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setTitle(title);
         }
     }
 }
