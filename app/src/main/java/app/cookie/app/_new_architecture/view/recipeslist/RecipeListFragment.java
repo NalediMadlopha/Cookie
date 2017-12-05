@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.cookie.app.R;
 
@@ -17,6 +18,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment {
 
     private RecipeListViewModel viewModel;
     private RecyclerView recipeRecyclerView;
+    private ProgressBar progressBar;
 
     public RecipeListFragment() {
         // Required empty public constructor
@@ -33,6 +35,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment {
         View rootView = inflater.inflate(R.layout.fragment_recipe, container, false);
         recipeRecyclerView = rootView.findViewById(R.id.recipe_recycler_view);
         recipeRecyclerView.setLayoutManager(new AutoGridLayoutManager(getContext(), getResources().getInteger(R.integer.recipe_card_width)));
+        progressBar = rootView.findViewById(R.id.recipe_progress_bar);
 
         return rootView;
     }
@@ -43,6 +46,7 @@ public class RecipeListFragment extends android.support.v4.app.Fragment {
         viewModel = ViewModelProviders.of(getActivity()).get(RecipeListViewModel.class);
         viewModel.init();
         viewModel.getRecipes().observe(this, recipes -> {
+            progressBar.setVisibility(View.GONE);
             recipeRecyclerView.setAdapter(new RecipeListAdapter(getContext(), recipes));
         });
     }

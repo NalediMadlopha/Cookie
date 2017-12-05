@@ -14,9 +14,11 @@ import app.cookie.app.Utils.Util;
 import app.cookie.app._new_architecture.dependency.App;
 import app.cookie.app._new_architecture.view.recipedetails.ingredientslist.IngredientsListFragment;
 import app.cookie.app._new_architecture.view.recipedetails.stepslist.StepsListFragment;
+import app.cookie.app._new_architecture.view.stepdetails.StepDetailsFragment;
 import app.cookie.app._new_architecture.viewmodel.RecipeDetailsViewModel;
 import app.cookie.app._new_architecture.viewmodel.factory.RecipeDetailsViewModelFactory;
-import app.cookie.app.view.stepdetails.StepDetailsFragment;
+import app.cookie.app._new_architecture.viewmodel.factory.StepDetailsViewModelFactory;
+import app.cookie.app.viewmodel.StepDetailsViewModel;
 
 import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
@@ -25,6 +27,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     @Inject
     RecipeDetailsViewModelFactory recipeDetailsViewModelFactory;
+    @Inject
+    StepDetailsViewModelFactory stepDetailsViewModelFactory;
     private int recipeId;
     private String recipeName;
 
@@ -42,15 +46,14 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private void setupScreenData() {
         if (getIntent().getExtras() != null) {
             recipeId = getIntent().getExtras().getInt(RECIPE_ID);
-            Util.savePreferences(this, RECIPE_ID, recipeId);
-
+            Util.saveIntPreferences(this, RECIPE_ID, recipeId);
             recipeName = getIntent().getExtras().getString(RECIPE_NAME);
-            // TODO: 11/13/17 Replace recipe id with recipe name
-            Util.savePreferences(this, RECIPE_NAME, recipeId);
+            // TODO: 11/13/17 Replace the recipe id with recipe name
+            Util.saveStringPreferences(this, RECIPE_NAME, "");
         } else {
             SharedPreferences sharedPreferences = this.getPreferences(MODE_PRIVATE);
             recipeId = sharedPreferences.getInt(RECIPE_ID, 0);
-            recipeName = String.valueOf(sharedPreferences.getInt(RECIPE_ID, 0));
+            recipeName = sharedPreferences.getString(RECIPE_NAME, "");
         }
     }
 
@@ -73,14 +76,11 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
         if (isTablet) {
-            Bundle bundle = new Bundle();
-            bundle.putInt(RECIPE_ID, recipeId);
-
-            StepDetailsFragment stepDetailsFragment = new StepDetailsFragment();
-            stepDetailsFragment.setArguments(bundle);
+            StepDetailsViewModel viewModel = ViewModelProviders.of(this, stepDetailsViewModelFactory).get(StepDetailsViewModel.class);
+            viewModel.init(recipeId, 0);
 
             fragmentManager.beginTransaction()
-                    .replace(R.id.step_details_container, stepDetailsFragment)
+                    .replace(R.id.step_details_container, new StepDetailsFragment())
                     .commit();
         }
     }

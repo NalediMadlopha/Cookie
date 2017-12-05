@@ -22,7 +22,7 @@
         <activity
             android:name="app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity"
             android:parentActivityName="app.cookie.app._new_architecture.view.recipeslist.RecipeListActivity" />
-        <activity android:name="app.cookie.app.view.stepdetails.StepDetailsActivity"
+        <activity android:name="app.cookie.app._new_architecture.view.stepdetails.StepDetailsActivity"
             android:parentActivityName="app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity"></activity>
     </application>
 

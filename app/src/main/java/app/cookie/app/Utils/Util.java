@@ -22,11 +22,22 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Util {
 
-    public static void savePreferences(Activity activity, String tag, int value) {
+    private Util() {
+    }
+
+    public static void saveIntPreferences(Activity activity, String tag, int value) {
         SharedPreferences sharedPreferences;
         sharedPreferences = activity.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(tag, value);
+        editor.apply();
+    }
+
+    public static void saveStringPreferences(Activity activity, String tag, String value) {
+        SharedPreferences sharedPreferences;
+        sharedPreferences = activity.getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(tag, value);
         editor.apply();
     }
 

@@ -17,8 +17,8 @@ import java.util.List;
 
 import app.cookie.app._new_architecture.model.Step;
 import app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity;
-import app.cookie.app.view.stepdetails.StepDetailsActivity;
-import app.cookie.app.view.stepdetails.StepDetailsFragment;
+import app.cookie.app._new_architecture.view.stepdetails.StepDetailsActivity;
+import app.cookie.app._new_architecture.view.stepdetails.StepDetailsFragment;
 
 import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app._new_architecture.stringdef.CookieConstants.KEY.RECIPE_NAME;
@@ -71,8 +71,8 @@ class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.StepViewHol
 
             if (!isTablet) {
                 Intent intent = new Intent(context, StepDetailsActivity.class);
-                intent.putExtra(RECIPE_NAME, recipeName);
                 intent.putExtra(RECIPE_ID, recipeId);
+                intent.putExtra(RECIPE_NAME, recipeName);
                 intent.putExtra(STEP_ID, step.getId());
                 context.startActivity(intent);
             } else {

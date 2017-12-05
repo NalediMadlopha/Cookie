@@ -29,6 +29,6 @@ public class RecipeDetailsViewModel extends ViewModel {
     }
 
     public LiveData<Recipe> getRecipe() {
-        return this.recipe;
+        return recipe;
     }
 }

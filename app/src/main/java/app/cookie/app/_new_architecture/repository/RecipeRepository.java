@@ -58,4 +58,10 @@ public class RecipeRepository {
             }
         });
     }
+
+//    public void offlineData(Context context) {
+//        AsyncTask.execute(() -> {
+//            recipeDao.insertAll(Util.getAllRecipes(context));
+//        });
+//    }
 }

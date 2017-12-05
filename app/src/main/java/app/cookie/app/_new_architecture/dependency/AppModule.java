@@ -9,8 +9,9 @@ import app.cookie.app._new_architecture.database.AppDatabase;
 import app.cookie.app._new_architecture.database.RecipeDao;
 import app.cookie.app._new_architecture.dataservice.WebService;
 import app.cookie.app._new_architecture.repository.RecipeRepository;
-import app.cookie.app._new_architecture.viewmodel.factory.RecipeListViewModelFactory;
 import app.cookie.app._new_architecture.viewmodel.factory.RecipeDetailsViewModelFactory;
+import app.cookie.app._new_architecture.viewmodel.factory.RecipeListViewModelFactory;
+import app.cookie.app._new_architecture.viewmodel.factory.StepDetailsViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -46,6 +47,12 @@ public class AppModule {
     @Provides
     @Inject
     ViewModelProvider.Factory provideRecipeDetailsViewModelFactory(RecipeDetailsViewModelFactory factory) {
+        return factory;
+    }
+
+    @Provides
+    @Inject
+    ViewModelProvider.Factory provideStepDetailsViewModelFactory(StepDetailsViewModelFactory factory) {
         return factory;
     }
 

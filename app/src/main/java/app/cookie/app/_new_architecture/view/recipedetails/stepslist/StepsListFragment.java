@@ -18,7 +18,6 @@ import app.cookie.app._new_architecture.viewmodel.RecipeDetailsViewModel;
 
 public class StepsListFragment extends Fragment {
 
-    private RecipeDetailsViewModel viewModel;
     private RecyclerView stepsRecyclerView;
 
     public StepsListFragment() {
@@ -40,7 +39,7 @@ public class StepsListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(RecipeDetailsViewModel.class);
+        RecipeDetailsViewModel viewModel = ViewModelProviders.of(getActivity()).get(RecipeDetailsViewModel.class);
         viewModel.getRecipe().observe(this, recipe -> {
             stepsRecyclerView.setAdapter(new StepsListAdapter(recipe.getId(), recipe.getName(), recipe.getSteps()));
         });
