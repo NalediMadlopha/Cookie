@@ -15,8 +15,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.cookie.app._new_architecture.model.Recipe;
-import app.cookie.app._new_architecture.model.Step;
+import app.cookie.app.model.Recipe;
+import app.cookie.app.model.Step;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -48,7 +48,7 @@ public class Util {
             InputStream inputStream = context.getAssets().open("recipes_data.json");
             int size = inputStream.available();
             byte[] buffer = new byte[size];
-            // TODO: 10/12/17 Check the value returned fromt the input stream
+            // TODO: 10/12/17 Check the value returned from the input stream
             inputStream.read(buffer);
             inputStream.close();
             String json = new String(buffer, "UTF-8");

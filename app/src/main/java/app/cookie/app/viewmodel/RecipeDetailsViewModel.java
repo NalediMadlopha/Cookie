@@ -10,22 +10,18 @@ import app.cookie.app.dependency.App;
 import app.cookie.app.model.Recipe;
 import app.cookie.app.repository.RecipeRepository;
 
-public class StepDetailsViewModel extends ViewModel {
+public class RecipeDetailsViewModel extends ViewModel {
 
     private LiveData<Recipe> recipe;
     private RecipeRepository repository;
-    private int recipeId;
-    private int stepId;
 
     @Inject
-    public StepDetailsViewModel(RecipeRepository repository) {
+    public RecipeDetailsViewModel(RecipeRepository repository) {
         App.appComponent().inject(this);
         this.repository = repository;
     }
 
-    public void init(int recipeId, int stepId) {
-        this.recipeId = recipeId;
-        this.stepId = stepId;
+    public void init(int recipeId) {
         if (recipe != null) {
             return;
         }
@@ -34,13 +30,5 @@ public class StepDetailsViewModel extends ViewModel {
 
     public LiveData<Recipe> getRecipe() {
         return recipe;
-    }
-
-    public void setStepId(int stepId) {
-        this.stepId = stepId;
-    }
-
-    public int getStepId() {
-        return stepId;
     }
 }

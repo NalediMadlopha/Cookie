@@ -9,5 +9,6 @@
     <dimen name="padding_16dp">16dp</dimen>
     <dimen name="view_space_width_1dp">1dp</dimen>
     <dimen name="default_0dp">0dp</dimen>
+    <dimen name="exo_player_height">250dp</dimen>
     <integer name="recipe_card_width">800</integer>
 </resources>

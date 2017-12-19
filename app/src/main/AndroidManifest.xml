@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="app.cookie.app._new_architecture.dependency.App">
-        <activity android:name="app.cookie.app._new_architecture.view.recipeslist.RecipeListActivity">
+        android:name="app.cookie.app.dependency.App">
+        <activity android:name="app.cookie.app.view.recipeslist.RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,10 +20,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity"
-            android:parentActivityName="app.cookie.app._new_architecture.view.recipeslist.RecipeListActivity" />
-        <activity android:name="app.cookie.app._new_architecture.view.stepdetails.StepDetailsActivity"
-            android:parentActivityName="app.cookie.app._new_architecture.view.recipedetails.RecipeDetailsActivity"></activity>
+            android:name="app.cookie.app.view.recipedetails.RecipeDetailsActivity"
+            android:parentActivityName="app.cookie.app.view.recipeslist.RecipeListActivity" />
+        <activity android:name="app.cookie.app.view.stepdetails.StepDetailsActivity"
+            android:parentActivityName="app.cookie.app.view.recipedetails.RecipeDetailsActivity">
+        </activity>
+        <receiver android:name="android.support.v4.media.session.MediaButtonReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

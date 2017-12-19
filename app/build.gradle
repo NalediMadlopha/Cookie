@@ -52,12 +52,13 @@ android {
         implementation 'android.arch.persistence.room:runtime:1.0.0-rc1'
         annotationProcessor 'android.arch.persistence.room:compiler:1.0.0-rc1'
         androidTestImplementation 'android.arch.persistence.room:testing:1.0.0-rc1'
-////    // Dagger
-//        compile 'com.google.dagger:dagger:2.12'
+        // Dagger
         compile 'com.google.dagger:dagger-android:2.12'
         compile 'com.google.dagger:dagger-android-support:2.12'
         annotationProcessor 'com.google.dagger:dagger-android-processor:2.12'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
+        // Media Player
+        compile 'com.google.android.exoplayer:exoplayer:r2.4.0'
     }
 }
 
