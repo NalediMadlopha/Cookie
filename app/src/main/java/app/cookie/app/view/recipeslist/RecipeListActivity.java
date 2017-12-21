@@ -23,9 +23,6 @@ public class RecipeListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_list);
         App.appComponent().inject(this);
 
-//        RecipeListViewModel recipeListViewModel = new RecipeListViewModel(new RecipeRepository());
-//        recipeListViewModel.offlineData(this);
-
         ViewModelProviders.of(this, recipeListViewModelFactory).get(RecipeListViewModel.class);
     }
 }

@@ -5,11 +5,10 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,33 +30,38 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import app.cookie.app.dependency.App;
 import app.cookie.app.model.Recipe;
 import app.cookie.app.model.Step;
 import app.cookie.app.viewmodel.StepDetailsViewModel;
+import butterknife.BindBool;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static app.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
 
 public class StepDetailsFragment extends Fragment implements StepDetailsFragmentView {
 
-    private final int FIRST_STEP_ID = 0;
-    private final int STEP_ID_INCREMENT = 1;
-    private static final String TAG = StepDetailsFragment.class.getSimpleName();
-    private TextView stepShortDescriptionTextView;
-    private TextView stepDescriptionTextView;
-    private Button previousStepButton;
-    private Button nextStepButton;
-    private View viewSpace;
+    private static final int FIRST_STEP_ID = 0;
+    private static final int STEP_ID_INCREMENT = 1;
     private StepDetailsViewModel viewModel;
     private Recipe recipe;
     private Step step;
-    private ProgressBar progressBar;
-    private LinearLayout mainlayout;
-    private SimpleExoPlayer exoPlayer;
-    private SimpleExoPlayerView exoPlayerView;
-    private MediaSessionCompat mediaSession;
-    private PlaybackStateCompat.Builder stateBuilder;
     private boolean playWhenReady;
     private int currentWindow;
     private long playbackPosition;
-    private boolean isLandspace;
+    private SimpleExoPlayer exoPlayer;
+
+    @BindView(R.id.step_short_description) TextView stepShortDescriptionTextView;
+    @BindView(R.id.step_description) TextView stepDescriptionTextView;
+    @BindView(R.id.previous_step_button) Button previousStepButton;
+    @BindView(R.id.next_step_button) Button nextStepButton;
+    @BindView(R.id.view_space) View viewSpace;
+    @BindView(R.id.step_details_progress_bar) ProgressBar progressBar;
+    @BindView(R.id.step_details_main_layout) LinearLayout mainlayout;
+    @BindView(R.id.exoPlayerView) SimpleExoPlayerView exoPlayerView;
+    @BindBool(R.bool.isLandscape) boolean isLandspace;
 
     public StepDetailsFragment() {
         // Required empty public constructor
@@ -66,21 +70,14 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.appComponent().inject(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step_details, container, false);
-        progressBar = view.findViewById(R.id.step_details_progress_bar);
-        mainlayout = view.findViewById(R.id.step_details_main_layout);
-        exoPlayerView = view.findViewById(R.id.exoPlayerView);
-        stepShortDescriptionTextView = view.findViewById(R.id.step_short_description);
-        stepDescriptionTextView = view.findViewById(R.id.step_description);
-        previousStepButton = view.findViewById(R.id.previous_step_button);
-        nextStepButton = view.findViewById(R.id.next_step_button);
-        viewSpace = view.findViewById(R.id.view_space);
-        isLandspace = getResources().getBoolean(R.bool.isLandscape);
+        ButterKnife.bind(this, view);
 
         return view;
     }
@@ -89,6 +86,9 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(StepDetailsViewModel.class);
+        if (getArguments() != null) {
+            viewModel.init(getArguments().getInt(RECIPE_ID), getArguments().getInt(STEP_ID));
+        }
         viewModel.getRecipe().observe(this, recipe -> {
             this.recipe = recipe;
             updateUi();
@@ -114,7 +114,7 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     @Override
     public void displayPreviousStepButton() {
         previousStepButton.setVisibility(View.VISIBLE);
-        previousStepButton.setOnClickListener(PreviousStepButtonClickListener);
+        previousStepButton.setOnClickListener(previousStepButtonClickListener);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     @Override
     public void displayNextStepButton() {
         nextStepButton.setVisibility(View.VISIBLE);
-        nextStepButton.setOnClickListener(NextStepButtonClickListener);
+        nextStepButton.setOnClickListener(nextStepButtonClickListener);
     }
 
     @Override
@@ -174,7 +174,7 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
         }
     }
 
-    View.OnClickListener PreviousStepButtonClickListener = new View.OnClickListener() {
+    View.OnClickListener previousStepButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             viewModel.setStepId(step.getId() - 1);
@@ -182,7 +182,7 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
         }
     };
 
-    View.OnClickListener NextStepButtonClickListener = new View.OnClickListener() {
+    View.OnClickListener nextStepButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             viewModel.setStepId(step.getId() + 1);

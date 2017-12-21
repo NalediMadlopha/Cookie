@@ -12,12 +12,14 @@ import com.cookie.app.R;
 import java.util.List;
 
 import app.cookie.app.model.Ingredient;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsListAdapter.IngredientViewHolder> {
 
     private final List<Ingredient> ingredients;
 
-    public IngredientsListAdapter(List<Ingredient> ingredients) {
+    IngredientsListAdapter(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -31,6 +33,7 @@ class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsListAdapter
     public void onBindViewHolder(IngredientViewHolder holder, int position) {
         Ingredient ingredient = ingredients.get(position);
 
+        // TODO: 12/21/17 Use the placeholder instead of concatinating the string
         holder.ingredientTextView.setText(ingredient.getQuantity() + " " + ingredient.getMeasure() + " " + ingredient.getIngredient());
     }
 
@@ -41,11 +44,11 @@ class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsListAdapter
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-        TextView ingredientTextView;
+        @BindView(R.id.ingredient_text_view) TextView ingredientTextView;
 
         public IngredientViewHolder(View itemView) {
             super(itemView);
-            ingredientTextView = itemView.findViewById(R.id.ingredient_text_view);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

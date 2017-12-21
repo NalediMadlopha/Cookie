@@ -14,11 +14,13 @@ import android.view.ViewGroup;
 import com.cookie.app.R;
 
 import app.cookie.app.viewmodel.RecipeDetailsViewModel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class IngredientsListFragment extends Fragment {
 
     private RecipeDetailsViewModel viewModel;
-    private RecyclerView ingredientsRecyclerView;
+    @BindView(R.id.ingredients_recycler_view) RecyclerView ingredientsRecyclerView;
 
     public IngredientsListFragment() {
         // Required empty public constructor
@@ -27,11 +29,12 @@ public class IngredientsListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_ingredients, container, false);
-        ingredientsRecyclerView = rootView.findViewById(R.id.ingredients_recycler_view);
+        View view = inflater.inflate(R.layout.fragment_ingredients, container, false);
+        ButterKnife.bind(this, view);
+
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        return rootView;
+        return view;
     }
 
     @Override

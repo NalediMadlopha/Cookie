@@ -5,6 +5,7 @@ import app.cookie.app.repository.RecipeRepository;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import app.cookie.app.view.recipeslist.RecipeListActivity;
 import app.cookie.app.view.stepdetails.StepDetailsActivity;
+import app.cookie.app.view.stepdetails.StepDetailsFragment;
 import app.cookie.app.viewmodel.RecipeDetailsViewModel;
 import app.cookie.app.viewmodel.RecipeListViewModel;
 import app.cookie.app.viewmodel.StepDetailsViewModel;
@@ -18,6 +19,8 @@ public interface AppComponent {
     void inject(RecipeDetailsActivity recipeDetailsActivity);
 
     void inject(StepDetailsActivity stepDetailsActivity);
+
+    void inject(StepDetailsFragment stepDetailsFragment);
 
     void inject(RecipeListViewModel viewModel);
 

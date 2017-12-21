@@ -1,0 +1,11 @@
+
+Nsquid:S1135"2Complete the task associated to this TODO comment.(„µí¡8öæç´ô+
+rsquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(óñÖ¡üÿÿÿÿ
+bsquid:S1192"FDefine a constant instead of duplicating this literal "UTF-8" 3 times.(×İı8öæç´ô+
+msquid:S2259"LA "NullPointerException" could be thrown; "selectedRecipe" is nullable here.(­ş«Óûÿÿÿÿ8†›¹šô+
+Nsquid:S1135"2Complete the task associated to this TODO comment.(„µí¡8×¨šô+
+ssquid:S1192"RDefine a constant instead of duplicating this literal "recipes_data.json" 3 times.(ù‰ğÏÿÿÿÿÿ8öæç´ô+
+ksquid:S2674"JCheck the return value of the "read" call to see how many bytes were read.(òÒ»§ùÿÿÿÿ8öæç´ô+
+Ssquid:S1135"2Complete the task associated to this TODO comment.(øüüµûÿÿÿÿ8ƒ¸®šô+
+ksquid:S2674"JCheck the return value of the "read" call to see how many bytes were read.(òÒ»§ùÿÿÿÿ8ƒ¸®šô+
+ksquid:S2674"JCheck the return value of the "read" call to see how many bytes were read.(òÒ»§ùÿÿÿÿ8×¨šô+

@@ -12,13 +12,15 @@ import android.widget.ProgressBar;
 import com.cookie.app.R;
 
 import app.cookie.app.viewmodel.RecipeListViewModel;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class RecipeListFragment extends android.support.v4.app.Fragment {
 
     private RecipeListViewModel viewModel;
-    private RecyclerView recipeRecyclerView;
-    private ProgressBar progressBar;
+    @BindView(R.id.recipe_recycler_view) RecyclerView recipeRecyclerView;
+    @BindView(R.id.recipe_progress_bar) ProgressBar progressBar;
 
     public RecipeListFragment() {
         // Required empty public constructor
@@ -32,12 +34,12 @@ public class RecipeListFragment extends android.support.v4.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_recipe, container, false);
-        recipeRecyclerView = rootView.findViewById(R.id.recipe_recycler_view);
-        recipeRecyclerView.setLayoutManager(new AutoGridLayoutManager(getContext(), getResources().getInteger(R.integer.recipe_card_width)));
-        progressBar = rootView.findViewById(R.id.recipe_progress_bar);
+        View view = inflater.inflate(R.layout.fragment_recipe, container, false);
+        ButterKnife.bind(this, view);
 
-        return rootView;
+        recipeRecyclerView.setLayoutManager(new AutoGridLayoutManager(getContext(), getResources().getInteger(R.integer.recipe_card_width)));
+
+        return view;
     }
 
     @Override

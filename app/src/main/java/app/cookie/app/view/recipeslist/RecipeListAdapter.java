@@ -16,6 +16,8 @@ import java.util.List;
 
 import app.cookie.app.model.Recipe;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
@@ -72,15 +74,13 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     class RecipeCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        @BindView(R.id.recipe_name_text_view) TextView recipeNameTextView;
+        @BindView(R.id.recipe_image_view) ImageView recipeImageView;
         Recipe recipe;
-        ImageView recipeImageView;
-        TextView recipeNameTextView;
 
         RecipeCardViewHolder(View itemView) {
             super(itemView);
-            recipeNameTextView = itemView.findViewById(R.id.recipe_name_text_view);
-            recipeImageView = itemView.findViewById(R.id.recipe_image_view);
-
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 

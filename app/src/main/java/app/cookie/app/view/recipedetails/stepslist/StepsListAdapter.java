@@ -19,6 +19,8 @@ import app.cookie.app.model.Step;
 import app.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import app.cookie.app.view.stepdetails.StepDetailsActivity;
 import app.cookie.app.view.stepdetails.StepDetailsFragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static app.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
@@ -55,12 +57,12 @@ class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.StepViewHol
 
     public class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        @BindView(R.id.step_text_view) TextView stepTextView;
         Step step;
-        TextView stepTextView;
 
         StepViewHolder(View itemView) {
             super(itemView);
-            stepTextView = itemView.findViewById(R.id.step_text_view);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -76,6 +78,8 @@ class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.StepViewHol
                 context.startActivity(intent);
             } else {
                 Bundle bundle = new Bundle();
+                bundle.putInt(RECIPE_ID, recipeId);
+                bundle.putString(RECIPE_NAME, recipeName);
                 bundle.putInt(STEP_ID, step.getId());
 
                 StepDetailsFragment stepDetailsFragment = new StepDetailsFragment();
