@@ -1,9 +1,0 @@
-
-=squid:S1170"!Make this final field static too.(×›ƒ‰8ÄÁ²«‚,
-‡squid:S00116"jRename this field "PreviousStepButtonClickListener" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š”Ü8ÚçŒ†„,
-=squid:S1170"!Make this final field static too.(œœÉú8ÄÁ²«‚,
-Csquid:S1185"(Remove this method to simply inherit it.(¥Ë©8üÂøƒ,
-asquid:HiddenFieldCheck":Rename "recipe" which hides the field declared at line 46.(·Ğµä8¬å¡¯‚,
-usquid:S00116"XRename this field "FIRST_STEP_ID" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×›ƒ‰8ÄÁ²«‚,
-ˆsquid:S00116"fRename this field "NextStepButtonClickListener" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ã¾·÷üÿÿÿÿ8ÚçŒ†„,
-ysquid:S00116"\Rename this field "STEP_ID_INCREMENT" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(œœÉú8ÄÁ²«‚,

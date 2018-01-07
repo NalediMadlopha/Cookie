@@ -5,14 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="app.cookie.app.dependency.App"
+        android:name=".dependency.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="app.cookie.app.view.recipeslist.RecipeListActivity">
+        <activity android:name=".view.recipeslist.RecipeListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,26 +20,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="app.cookie.app.view.recipedetails.RecipeDetailsActivity"
-            android:parentActivityName="app.cookie.app.view.recipeslist.RecipeListActivity" />
+            android:name=".view.recipedetails.RecipeDetailsActivity"
+            android:parentActivityName=".view.recipeslist.RecipeListActivity" />
         <activity
-            android:name="app.cookie.app.view.stepdetails.StepDetailsActivity"
-            android:parentActivityName="app.cookie.app.view.recipedetails.RecipeDetailsActivity"></activity>
+            android:name=".view.stepdetails.StepDetailsActivity"
+            android:parentActivityName=".view.recipedetails.RecipeDetailsActivity" />
 
         <receiver android:name="android.support.v4.media.session.MediaButtonReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".CookieWidget">
+        <receiver android:name=".view.widget.AppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/cookie_widget_info" />
+                android:resource="@xml/app_widget_info" />
         </receiver>
+
+        <service android:name=".view.widget.AppWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <provider android:name=".view.widget.RecipeDataProvider"
+            android:authorities="com.cookie.app.ingredientslistwidget.provider" />
     </application>
 
 </manifest>
