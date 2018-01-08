@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+
+dependencies {
+    implementation 'com.android.support:support-v4:27.+'
+    implementation 'com.android.support:support-vector-drawable:27.+'
+}
 android {
     compileSdkVersion 27
     buildToolsVersion "26.0.2"
@@ -17,6 +22,7 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {

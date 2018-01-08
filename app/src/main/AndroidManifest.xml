@@ -41,11 +41,17 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
 
-        <service android:name=".view.widget.AppWidgetService"
+        <service
+            android:name=".view.widget.AppWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <provider android:name=".view.widget.RecipeDataProvider"
+        <provider
+            android:name=".view.widget.RecipeDataProvider"
             android:authorities="com.cookie.app.ingredientslistwidget.provider" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
