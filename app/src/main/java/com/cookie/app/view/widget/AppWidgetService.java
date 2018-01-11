@@ -16,7 +16,7 @@ public class AppWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new RemoteIngredientsItemViewFactory(this.getApplicationContext(), intent);
+        return new RemoteIngredientsItemViewFactory(this.getApplicationContext());
     }
 
     public class RemoteIngredientsItemViewFactory implements RemoteViewsService.RemoteViewsFactory {
@@ -24,7 +24,7 @@ public class AppWidgetService extends RemoteViewsService {
         private List<Ingredient> ingredients;
         private final Context context;
 
-        public RemoteIngredientsItemViewFactory(Context context, Intent intent) {
+        public RemoteIngredientsItemViewFactory(Context context) {
             this.context = context;
         }
 

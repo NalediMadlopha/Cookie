@@ -3,10 +3,8 @@ package com.cookie.app.repository;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
 import android.os.AsyncTask;
 
-import com.cookie.app.Utils.Util;
 import com.cookie.app.database.RecipeDao;
 import com.cookie.app.dataservice.WebService;
 import com.cookie.app.dependency.App;
@@ -59,13 +57,6 @@ public class RecipeRepository {
             public void onFailure(Call<Recipe[]> call, Throwable t) {
                 // I have left out the error case for brevity
             }
-        });
-    }
-
-    // TODO: 1/4/18 Remove this method on submission
-    public void offlineData(Context context) {
-        AsyncTask.execute(() -> {
-            recipeDao.insertAll(Util.getAllRecipes(context));
         });
     }
 }

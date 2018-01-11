@@ -7,13 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.cookie.app.R;
-
-import javax.inject.Inject;
-
 import com.cookie.app.Utils.Util;
 import com.cookie.app.dependency.App;
-import com.cookie.app.viewmodel.factory.StepDetailsViewModelFactory;
 import com.cookie.app.viewmodel.StepDetailsViewModel;
+import com.cookie.app.viewmodel.factory.StepDetailsViewModelFactory;
+
+import javax.inject.Inject;
 
 import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
@@ -69,7 +68,13 @@ public class StepDetailsActivity extends AppCompatActivity {
     private void setupUI() {
         setupScreenTitle(recipeName);
 
+        Bundle bundle = new Bundle();
+        bundle.putInt(RECIPE_ID, recipeId);
+        bundle.putString(RECIPE_NAME, recipeName);
+        bundle.putInt(STEP_ID, stepId);
+
         StepDetailsFragment stepDetailsFragment = new StepDetailsFragment();
+        stepDetailsFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()

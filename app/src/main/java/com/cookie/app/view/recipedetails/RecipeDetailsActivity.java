@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.cookie.app.R;
 import com.cookie.app.Utils.Util;
@@ -30,16 +32,38 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     StepDetailsViewModelFactory stepDetailsViewModelFactory;
     private int recipeId;
     private String recipeName;
+    private RecipeDetailsViewModel recipeDetailsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        App.appComponent().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
-        App.appComponent().inject(this);
 
         setupScreenData();
         setupViewModel();
         setupUI();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menu_settings) {
+            Util.saveAppWidgetPreferences(this, recipeDetailsViewModel.getRecipe().getValue());
+            Util.updateWidgets(this);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupScreenData() {
@@ -56,8 +80,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-        RecipeDetailsViewModel viewModel = ViewModelProviders.of(this, recipeDetailsViewModelFactory).get(RecipeDetailsViewModel.class);
-        viewModel.init(recipeId);
+        recipeDetailsViewModel = ViewModelProviders.of(this, recipeDetailsViewModelFactory).get(RecipeDetailsViewModel.class);
+        recipeDetailsViewModel.init(recipeId);
     }
 
     private void setupUI() {
@@ -73,8 +97,8 @@ public class RecipeDetailsActivity extends AppCompatActivity {
                 .commit();
 
         if (getResources().getBoolean(R.bool.isTablet)) {
-            StepDetailsViewModel viewModel = ViewModelProviders.of(this, stepDetailsViewModelFactory).get(StepDetailsViewModel.class);
-            viewModel.init(recipeId, 0);
+            StepDetailsViewModel stepDetailsViewModel = ViewModelProviders.of(this, stepDetailsViewModelFactory).get(StepDetailsViewModel.class);
+            stepDetailsViewModel.init(recipeId, 0);
 
             fragmentManager.beginTransaction()
                     .replace(R.id.step_details_container, new StepDetailsFragment())

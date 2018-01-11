@@ -18,6 +18,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cookie.app.R;
+import com.cookie.app.dependency.App;
+import com.cookie.app.model.Recipe;
+import com.cookie.app.model.Step;
+import com.cookie.app.stringdef.CookieConstants;
+import com.cookie.app.viewmodel.StepDetailsViewModel;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -30,21 +35,16 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import com.cookie.app.dependency.App;
-import com.cookie.app.model.Recipe;
-import com.cookie.app.model.Step;
-import com.cookie.app.viewmodel.StepDetailsViewModel;
 import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
-import static com.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
 
-public class StepDetailsFragment extends Fragment implements StepDetailsFragmentView {
+public class StepDetailsFragment extends Fragment {
 
-    private static final int FIRST_STEP_ID = 0;
-    private static final int STEP_ID_INCREMENT = 1;
+    private static int CURRENT_STEP;
+    private static final int FIRST_STEP = 0;
     private StepDetailsViewModel viewModel;
     private Recipe recipe;
     private Step step;
@@ -87,7 +87,8 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(StepDetailsViewModel.class);
         if (getArguments() != null) {
-            viewModel.init(getArguments().getInt(RECIPE_ID), getArguments().getInt(STEP_ID));
+            CURRENT_STEP = getArguments().getInt(CookieConstants.KEY.STEP_ID);
+            viewModel.init(getArguments().getInt(RECIPE_ID), CURRENT_STEP);
         }
         viewModel.getRecipe().observe(this, recipe -> {
             this.recipe = recipe;
@@ -111,31 +112,27 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
         }
     }
 
-    @Override
-    public void displayPreviousStepButton() {
+    private void displayPreviousStepButton() {
         previousStepButton.setVisibility(View.VISIBLE);
         previousStepButton.setOnClickListener(previousStepButtonClickListener);
     }
 
-    @Override
-    public void hidePreviousStepButton() {
+    private void hidePreviousStepButton() {
         previousStepButton.setVisibility(View.GONE);
     }
 
-    @Override
-    public void displayNextStepButton() {
+    private void displayNextStepButton() {
         nextStepButton.setVisibility(View.VISIBLE);
         nextStepButton.setOnClickListener(nextStepButtonClickListener);
     }
 
-    @Override
-    public void hideNextStepButton() {
+    private void hideNextStepButton() {
         nextStepButton.setVisibility(View.GONE);
     }
 
     private void updateUi() {
-        // TODO: 1/5/18 Investigate why the app crashes when it updates the ui for the yellow cake
-        step = recipe.getSteps().get(viewModel.getStepId());
+        step = recipe.getSteps().get(CURRENT_STEP);
+
         if (!step.getVideoURL().isEmpty()) {
             initializePlayer(Uri.parse(step.getVideoURL()));
         } else {
@@ -155,16 +152,15 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
 
     private void setupButtons() {
         if (!getResources().getBoolean(R.bool.isTablet)) {
-            if (viewModel.getStepId() != FIRST_STEP_ID) {
+            if (CURRENT_STEP == FIRST_STEP) {
+                hidePreviousStepButton();
+                displayNextStepButton();
+            } else if (CURRENT_STEP == (recipe.getSteps().size() - 1)) {
+                hideNextStepButton();
                 displayPreviousStepButton();
             } else {
-                hidePreviousStepButton();
-            }
-
-            if ((viewModel.getStepId() + STEP_ID_INCREMENT) != recipe.getSteps().size()) {
                 displayNextStepButton();
-            } else {
-                hideNextStepButton();
+                displayPreviousStepButton();
             }
 
             if (nextStepButton.getVisibility() == View.VISIBLE && previousStepButton.getVisibility() == View.VISIBLE) {
@@ -178,7 +174,7 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     View.OnClickListener previousStepButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            viewModel.setStepId(step.getId() - 1);
+            viewModel.setStepId(CURRENT_STEP--);
             updateStepDetails();
         }
     };
@@ -186,7 +182,7 @@ public class StepDetailsFragment extends Fragment implements StepDetailsFragment
     View.OnClickListener nextStepButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            viewModel.setStepId(step.getId() + 1);
+            viewModel.setStepId(CURRENT_STEP++);
             updateStepDetails();
         }
     };

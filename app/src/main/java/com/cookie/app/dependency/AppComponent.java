@@ -6,8 +6,6 @@ import com.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import com.cookie.app.view.recipeslist.RecipeListActivity;
 import com.cookie.app.view.stepdetails.StepDetailsActivity;
 import com.cookie.app.view.stepdetails.StepDetailsFragment;
-import com.cookie.app.view.widget.AppWidget;
-import com.cookie.app.view.widget.AppWidgetService;
 import com.cookie.app.viewmodel.RecipeDetailsViewModel;
 import com.cookie.app.viewmodel.RecipeListViewModel;
 import com.cookie.app.viewmodel.StepDetailsViewModel;
@@ -34,8 +32,4 @@ public interface AppComponent {
     void inject(RecipeRepository recipeRepository);
 
     void inject(AppDatabase appDatabase);
-
-    void inject(AppWidget appWidget);
-
-    void inject(AppWidgetService appWidgetService);
 }

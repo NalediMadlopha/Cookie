@@ -12,13 +12,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cookie.app.R;
-
-import java.util.List;
-
 import com.cookie.app.model.Step;
 import com.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import com.cookie.app.view.stepdetails.StepDetailsActivity;
 import com.cookie.app.view.stepdetails.StepDetailsFragment;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -74,13 +74,14 @@ class StepsListAdapter extends RecyclerView.Adapter<StepsListAdapter.StepViewHol
                 Intent intent = new Intent(context, StepDetailsActivity.class);
                 intent.putExtra(RECIPE_ID, recipeId);
                 intent.putExtra(RECIPE_NAME, recipeName);
-                intent.putExtra(STEP_ID, step.getId());
+                intent.putExtra(STEP_ID, this.getLayoutPosition());
+
                 context.startActivity(intent);
             } else {
                 Bundle bundle = new Bundle();
                 bundle.putInt(RECIPE_ID, recipeId);
                 bundle.putString(RECIPE_NAME, recipeName);
-                bundle.putInt(STEP_ID, step.getId());
+                bundle.putInt(STEP_ID, this.getLayoutPosition());
 
                 StepDetailsFragment stepDetailsFragment = new StepDetailsFragment();
                 stepDetailsFragment.setArguments(bundle);

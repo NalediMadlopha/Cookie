@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cookie.app.R;
-import com.cookie.app.Utils.Util;
 import com.cookie.app.viewmodel.RecipeDetailsViewModel;
 
 import butterknife.BindView;
@@ -48,8 +47,6 @@ public class IngredientsListFragment extends Fragment {
         viewModel = ViewModelProviders.of(getActivity()).get(RecipeDetailsViewModel.class);
         viewModel.getRecipe().observe(this, recipe -> {
             ingredientsRecyclerView.setAdapter(new IngredientsListAdapter(getActivity(), recipe.getIngredients()));
-            // TODO: 1/8/18 Remove this line and implement a settings option
-            Util.saveAppWidgetPreferences(getActivity(), recipe);
         });
 
     }

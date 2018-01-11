@@ -14,7 +14,6 @@ public class StepDetailsViewModel extends ViewModel {
 
     private LiveData<Recipe> recipe;
     private RecipeRepository repository;
-    private int recipeId;
     private int stepId;
 
     @Inject
@@ -24,7 +23,6 @@ public class StepDetailsViewModel extends ViewModel {
     }
 
     public void init(int recipeId, int stepId) {
-        this.recipeId = recipeId;
         this.stepId = stepId;
         if (recipe != null) {
             return;

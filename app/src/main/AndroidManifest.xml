@@ -45,12 +45,8 @@
             android:name=".view.widget.AppWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <provider
-            android:name=".view.widget.RecipeDataProvider"
-            android:authorities="com.cookie.app.ingredientslistwidget.provider" />
-
         <activity
-            android:name=".SettingsActivity"
+            android:name=".view.settings.SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
     </application>
 
