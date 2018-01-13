@@ -32,10 +32,4 @@ public class RecipeListViewModel extends ViewModel {
     public LiveData<List<Recipe>> getRecipes() {
         return this.recipes;
     }
-
-//    public void offlineData(Context context) {
-//        AsyncTask.execute(() -> {
-//            repository.offlineData(context);
-//        });
-//    }
 }
