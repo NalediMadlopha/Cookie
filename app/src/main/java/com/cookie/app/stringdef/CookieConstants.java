@@ -19,9 +19,7 @@ public @interface CookieConstants {
     @interface KEY {
         String RECIPE_ID = "recipe_id";
         String RECIPE_NAME = "recipe_name";
-        String INGREDIENTS = "ingredients";
         String STEP_ID = "step_id";
-        String STEPS = "steps";
         String APP_WIDGET_PREFERENCES = "app_widget_preferences";
         String APP_WIDGET_RECIPE_NAME_PREFERENCES = "app_widget_recipe_name_preferences";
         String APP_WIDGET_INGREDIENTS_PREFERENCES = "app_widget_ingredients_preferences";

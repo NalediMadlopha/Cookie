@@ -53,7 +53,7 @@ public class AppWidgetService extends RemoteViewsService {
                                                 ingredients.get(i).getQuantity(),
                                                 ingredients.get(i).getMeasure(),
                                                 ingredients.get(i).getIngredient());
-            views.setTextViewText(R.id.ingredient_text_view, ingredientName);
+            views.setTextViewText(R.id.ingredient_item_text_view, ingredientName);
 
             return views;
         }

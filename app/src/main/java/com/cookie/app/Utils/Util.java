@@ -11,14 +11,12 @@ import android.content.SharedPreferences;
 import com.cookie.app.model.Ingredient;
 import com.cookie.app.model.Recipe;
 import com.cookie.app.view.widget.AppWidget;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.cookie.app.database.Converters.ingredientsListToString;
+import static com.cookie.app.database.Converters.ingredientsStringToList;
 import static com.cookie.app.stringdef.CookieConstants.KEY.APP_WIDGET_INGREDIENTS_PREFERENCES;
 import static com.cookie.app.stringdef.CookieConstants.KEY.APP_WIDGET_PREFERENCES;
 import static com.cookie.app.stringdef.CookieConstants.KEY.APP_WIDGET_RECIPE_NAME_PREFERENCES;
@@ -45,8 +43,7 @@ public class Util {
     }
 
     public static void saveAppWidgetPreferences(Context context, Recipe recipe) {
-        Type typeIngredients = new TypeToken<ArrayList<Ingredient>>(){}.getType();
-        String ingredientsString = new Gson().toJson(recipe.getIngredients(), typeIngredients);
+        String ingredientsString = ingredientsListToString(recipe.getIngredients());
 
         context.getSharedPreferences(APP_WIDGET_PREFERENCES, MODE_PRIVATE)
                 .edit()
@@ -59,8 +56,7 @@ public class Util {
         String json = context.getSharedPreferences(APP_WIDGET_PREFERENCES, MODE_PRIVATE)
                 .getString(APP_WIDGET_INGREDIENTS_PREFERENCES, "");
 
-        Type typeIngredients = new TypeToken<ArrayList<Ingredient>>(){}.getType();
-        return new Gson().fromJson(json, typeIngredients);
+        return ingredientsStringToList(json);
     }
 
     public static String getAppWidgetRecipeNamePreference(Context context) {

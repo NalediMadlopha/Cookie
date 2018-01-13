@@ -11,11 +11,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cookie.app.R;
+import com.cookie.app.model.Recipe;
+import com.cookie.app.view.recipedetails.RecipeDetailsActivity;
 
 import java.util.List;
 
-import com.cookie.app.model.Recipe;
-import com.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -72,7 +72,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         return recipeList.size();
     }
 
-    class RecipeCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class RecipeCardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.recipe_name_text_view) TextView recipeNameTextView;
         @BindView(R.id.recipe_image_view) ImageView recipeImageView;

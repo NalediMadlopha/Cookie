@@ -3,14 +3,13 @@ package com.cookie.app.database;
 
 import android.arch.persistence.room.TypeConverter;
 
+import com.cookie.app.model.Ingredient;
+import com.cookie.app.model.Step;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
-import com.cookie.app.model.Ingredient;
-import com.cookie.app.model.Step;
 
 public class Converters {
 
