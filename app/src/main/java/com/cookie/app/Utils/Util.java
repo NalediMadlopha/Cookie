@@ -7,11 +7,20 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 
+import com.cookie.app.R;
 import com.cookie.app.model.Ingredient;
 import com.cookie.app.model.Recipe;
 import com.cookie.app.view.widget.AppWidget;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -56,11 +65,19 @@ public class Util {
         String json = context.getSharedPreferences(APP_WIDGET_PREFERENCES, MODE_PRIVATE)
                 .getString(APP_WIDGET_INGREDIENTS_PREFERENCES, "");
 
+        if (TextUtils.isEmpty(json)) {
+            return new ArrayList<>();
+        }
         return ingredientsStringToList(json);
     }
 
     public static String getAppWidgetRecipeNamePreference(Context context) {
-        return context.getSharedPreferences(APP_WIDGET_PREFERENCES, MODE_PRIVATE).getString(APP_WIDGET_RECIPE_NAME_PREFERENCES, "");
+        String recipeName = context.getSharedPreferences(APP_WIDGET_PREFERENCES, MODE_PRIVATE).getString(APP_WIDGET_RECIPE_NAME_PREFERENCES, "");
+
+        if (TextUtils.isEmpty(recipeName)) {
+            return context.getString(R.string.ingredients);
+        }
+        return recipeName;
     }
 
     public static void updateWidgets(Context context) {
@@ -72,5 +89,18 @@ public class Util {
 
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
         context.sendBroadcast(intent);
+    }
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream inputStream = connection.getInputStream();
+            return BitmapFactory.decodeStream(inputStream);
+        } catch (IOException e) {
+            return null;
+        }
     }
 }

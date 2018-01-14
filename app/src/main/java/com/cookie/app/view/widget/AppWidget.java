@@ -54,8 +54,14 @@ public class AppWidget extends AppWidgetProvider {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                 appWidgetManager.notifyAppWidgetViewDataChanged(ids, R.id.appwidget_ingredient_list);
             }
-            String message = context.getResources().getString(R.string.widget_recipe_pinned, Util.getAppWidgetRecipeNamePreference(context));
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+
+            String ingredientsString = context.getString(R.string.ingredients);
+            String appWidgetRecipeNamePreference = Util.getAppWidgetRecipeNamePreference(context);
+
+            if (!appWidgetRecipeNamePreference.equals(ingredientsString)) {
+                String message = context.getString(R.string.widget_recipe_pinned, appWidgetRecipeNamePreference);
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            }
         }
         super.onReceive(context, intent);
     }
