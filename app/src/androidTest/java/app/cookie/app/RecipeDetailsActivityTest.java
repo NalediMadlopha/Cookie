@@ -15,13 +15,9 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
 import static com.cookie.app.stringdef.CookieConstants.KEY.STEP_ID;
@@ -32,20 +28,6 @@ public class RecipeDetailsActivityTest {
     @Rule
     public ActivityTestRule<RecipeDetailsActivity> activityTestRule
             = new ActivityTestRule<>(RecipeDetailsActivity.class);
-
-    @Test
-    public void should_display_the_ingredients_label() throws Exception {
-        onView(withId(R.id.recipe_details_ingredients_label_text_view))
-                .check(matches(isDisplayed()))
-                .check(matches(withText("Ingredients")));
-    }
-
-    @Test
-    public void should_display_the_steps_label() throws Exception {
-        onView(withId(R.id.recipe_details_steps_label_text_view))
-                .check(matches(isDisplayed()))
-                .check(matches(withText("Steps")));
-    }
 
     @Test
     public void navigate_to_step_details_activity_when_a_step_item_is_clicked() throws Exception {
