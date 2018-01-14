@@ -16,6 +16,7 @@
 
     <string name="pref_title_select_a_recipe">Select a recipe</string>
     <string name="pin_to_widget">Pin to Widget</string>
+    <string name="no_ingredients_pref">Open the app and pin the desired recipe to display its ingredients here.</string>
     <string-array name="pref_widget_recipe_list_titles">
         <item>Nutella Pie</item>
         <item>Brownies</item>

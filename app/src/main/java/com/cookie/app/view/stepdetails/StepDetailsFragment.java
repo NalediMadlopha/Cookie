@@ -23,6 +23,7 @@ import com.cookie.app.model.Recipe;
 import com.cookie.app.model.Step;
 import com.cookie.app.stringdef.CookieConstants;
 import com.cookie.app.viewmodel.StepDetailsViewModel;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -39,7 +40,9 @@ import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.cookie.app.Utils.Util.getBitmapFromURL;
 import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
+import static com.cookie.app.stringdef.CookieConstants.KEY.SELECTED_POSITION;
 
 public class StepDetailsFragment extends Fragment {
 
@@ -52,16 +55,43 @@ public class StepDetailsFragment extends Fragment {
     private int currentWindow;
     private long playbackPosition;
     private SimpleExoPlayer exoPlayer;
+    private Uri videoUri;
+    private String thumbnailURL;
 
-    @BindView(R.id.step_short_description) TextView stepShortDescriptionTextView;
-    @BindView(R.id.step_description) TextView stepDescriptionTextView;
-    @BindView(R.id.previous_step_button) Button previousStepButton;
-    @BindView(R.id.next_step_button) Button nextStepButton;
-    @BindView(R.id.view_space) View viewSpace;
-    @BindView(R.id.step_details_progress_bar) ProgressBar progressBar;
-    @BindView(R.id.step_details_main_layout) LinearLayout mainlayout;
-    @BindView(R.id.exoPlayerView) SimpleExoPlayerView exoPlayerView;
-    @BindBool(R.bool.isLandscape) boolean isLandspace;
+    @Nullable
+    @BindView(R.id.step_short_description)
+    TextView stepShortDescriptionTextView;
+
+    @Nullable
+    @BindView(R.id.step_description)
+    TextView stepDescriptionTextView;
+
+    @Nullable
+    @BindView(R.id.previous_step_button)
+    Button previousStepButton;
+
+    @Nullable
+    @BindView(R.id.next_step_button)
+    Button nextStepButton;
+
+    @Nullable
+    @BindView(R.id.view_space)
+    View viewSpace;
+
+    @Nullable
+    @BindView(R.id.step_details_progress_bar)
+    ProgressBar progressBar;
+
+    @Nullable
+    @BindView(R.id.step_details_main_layout)
+    LinearLayout mainlayout;
+
+    @BindView(R.id.exoPlayerView)
+    SimpleExoPlayerView exoPlayerView;
+
+    @Nullable
+    @BindBool(R.bool.isLandscape)
+    boolean isLandspace;
 
     public StepDetailsFragment() {
         // Required empty public constructor
@@ -71,6 +101,11 @@ public class StepDetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.appComponent().inject(this);
+        playbackPosition = C.TIME_UNSET;
+
+        if (savedInstanceState != null) {
+            playbackPosition = savedInstanceState.getLong(SELECTED_POSITION, C.TIME_UNSET);
+        }
     }
 
     @Override
@@ -97,10 +132,21 @@ public class StepDetailsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (videoUri != null) {
+            initializePlayer(videoUri, thumbnailURL);
+        }
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
-        if (Util.SDK_INT <= 23) {
-            releasePlayer();
+        if (exoPlayer != null) {
+            playbackPosition = exoPlayer.getCurrentPosition();
+            exoPlayer.stop();
+            exoPlayer.release();
+            exoPlayer = null;
         }
     }
 
@@ -110,6 +156,12 @@ public class StepDetailsFragment extends Fragment {
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(SELECTED_POSITION, playbackPosition);
     }
 
     private void displayPreviousStepButton() {
@@ -134,7 +186,9 @@ public class StepDetailsFragment extends Fragment {
         step = recipe.getSteps().get(CURRENT_STEP);
 
         if (!step.getVideoURL().isEmpty()) {
-            initializePlayer(Uri.parse(step.getVideoURL()));
+            videoUri  = Uri.parse(step.getVideoURL());
+            thumbnailURL = step.getThumbnailURL();
+            initializePlayer(videoUri, thumbnailURL);
         } else {
             exoPlayerView.setVisibility(View.GONE);
         }
@@ -196,15 +250,16 @@ public class StepDetailsFragment extends Fragment {
                 .commit();
     }
 
-    private void initializePlayer(Uri uri) {
+    private void initializePlayer(Uri uri, String thumbnailURL) {
         exoPlayer = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(getContext()),
                 new DefaultTrackSelector(), new DefaultLoadControl());
 
+        exoPlayerView.setDefaultArtwork(getBitmapFromURL(thumbnailURL));
         exoPlayerView.setPlayer(exoPlayer);
 
         exoPlayer.setPlayWhenReady(playWhenReady);
-        exoPlayer.seekTo(currentWindow, playbackPosition);
+        if (playbackPosition != C.TIME_UNSET) exoPlayer.seekTo(playbackPosition);
 
         MediaSource mediaSource = buildMediaSource(uri);
         exoPlayer.prepare(mediaSource, true, false);
