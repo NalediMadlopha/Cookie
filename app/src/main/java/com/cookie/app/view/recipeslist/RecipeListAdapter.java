@@ -3,6 +3,7 @@ package com.cookie.app.view.recipeslist;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,27 +46,14 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         holder.recipe = recipeList.get(position);
         holder.recipeNameTextView.setText(holder.recipe.getName());
 
-        int drawableResourceId;
-        switch (holder.recipe.getId()) {
-            case 1:
-                drawableResourceId = R.drawable.nutella_pie;
-                break;
-            case 2:
-                drawableResourceId = R.drawable.brownies;
-                break;
-            case 3:
-                drawableResourceId = R.drawable.yellow_cake;
-                break;
-            case 4:
-                drawableResourceId = R.drawable.cheese_cake;
-                break;
-            default:
-                drawableResourceId = R.drawable.default_card_background;
+        if (TextUtils.isEmpty(holder.recipe.getImage())) {
+            setDrawableResource(holder);
+        } else {
+            Glide.with(context)
+                    .load(holder.recipe.getImage())
+                    .into(holder.recipeImageView);
         }
-        Glide.with(context)
-                .load(drawableResourceId)
-                .into(holder.recipeImageView);
-}
+    }
 
     @Override
     public int getItemCount() {
@@ -91,5 +79,28 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             intent.putExtra(RECIPE_NAME, recipe.getName());
             view.getContext().startActivity(intent);
         }
+    }
+
+    private void setDrawableResource(RecipeCardViewHolder holder) {
+        int drawableResourceId;
+        switch (holder.recipe.getId()) {
+            case 1:
+                drawableResourceId = R.drawable.nutella_pie;
+                break;
+            case 2:
+                drawableResourceId = R.drawable.brownies;
+                break;
+            case 3:
+                drawableResourceId = R.drawable.yellow_cake;
+                break;
+            case 4:
+                drawableResourceId = R.drawable.cheese_cake;
+                break;
+            default:
+                drawableResourceId = R.drawable.default_card_background;
+        }
+        Glide.with(context)
+                .load(drawableResourceId)
+                .into(holder.recipeImageView);
     }
 }
