@@ -256,6 +256,9 @@ public class StepDetailsFragment extends Fragment {
     }
 
     private void initializePlayer(Uri uri, String thumbnailURL) {
+        if (exoPlayer != null) {
+            return;
+        }
         exoPlayer = ExoPlayerFactory.newSimpleInstance(
                 new DefaultRenderersFactory(getContext()),
                 new DefaultTrackSelector(), new DefaultLoadControl());
