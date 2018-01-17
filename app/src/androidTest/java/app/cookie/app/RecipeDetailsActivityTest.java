@@ -9,6 +9,8 @@ import com.cookie.app.R;
 import com.cookie.app.view.recipedetails.RecipeDetailsActivity;
 import com.cookie.app.view.stepdetails.StepDetailsActivity;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,10 +31,14 @@ public class RecipeDetailsActivityTest {
     public ActivityTestRule<RecipeDetailsActivity> activityTestRule
             = new ActivityTestRule<>(RecipeDetailsActivity.class);
 
+
+    @Before
+    public void setUp() throws Exception {
+        Intents.init();
+    }
+
     @Test
     public void navigate_to_step_details_activity_when_a_step_item_is_clicked() throws Exception {
-        Intents.init();
-
         int stepsRecyclerView = R.id.steps_recycler_view;
         onView(withRecyclerView(stepsRecyclerView)
                 .atPosition(0))
@@ -42,7 +48,10 @@ public class RecipeDetailsActivityTest {
         intended(hasExtra(RECIPE_ID, 1));
         intended(hasExtra(RECIPE_NAME, "Nutella Pie"));
         intended(hasExtra(STEP_ID, 0));
+    }
 
+    @After
+    public void tearDown() throws Exception {
         Intents.release();
     }
 

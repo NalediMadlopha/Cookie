@@ -34,7 +34,10 @@ public class StepDetailsActivity extends AppCompatActivity {
 
         setupScreenData();
         setupViewModel();
-        setupUI();
+
+        if (savedInstanceState == null) {
+            setupUI();
+        }
     }
 
     private void setupViewModel() {

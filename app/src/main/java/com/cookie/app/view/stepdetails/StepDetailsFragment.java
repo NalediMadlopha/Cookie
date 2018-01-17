@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.cookie.app.Utils.Util.getBitmapFromURL;
+import static com.cookie.app.stringdef.CookieConstants.KEY.PLAY_WHEN_READY_STATE;
 import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_ID;
 import static com.cookie.app.stringdef.CookieConstants.KEY.SELECTED_POSITION;
 
@@ -51,7 +53,7 @@ public class StepDetailsFragment extends Fragment {
     private StepDetailsViewModel viewModel;
     private Recipe recipe;
     private Step step;
-    private boolean playWhenReady;
+    private boolean isPlayWhenReady;
     private int currentWindow;
     private long playbackPosition;
     private SimpleExoPlayer exoPlayer;
@@ -105,6 +107,7 @@ public class StepDetailsFragment extends Fragment {
 
         if (savedInstanceState != null) {
             playbackPosition = savedInstanceState.getLong(SELECTED_POSITION, C.TIME_UNSET);
+            isPlayWhenReady = savedInstanceState.getBoolean(PLAY_WHEN_READY_STATE);
         }
     }
 
@@ -144,6 +147,7 @@ public class StepDetailsFragment extends Fragment {
         super.onPause();
         if (exoPlayer != null) {
             playbackPosition = exoPlayer.getCurrentPosition();
+            isPlayWhenReady = exoPlayer.getPlayWhenReady();
             exoPlayer.stop();
             exoPlayer.release();
             exoPlayer = null;
@@ -161,6 +165,7 @@ public class StepDetailsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putBoolean(PLAY_WHEN_READY_STATE, isPlayWhenReady);
         outState.putLong(SELECTED_POSITION, playbackPosition);
     }
 
@@ -185,7 +190,7 @@ public class StepDetailsFragment extends Fragment {
     private void updateUi() {
         step = recipe.getSteps().get(CURRENT_STEP);
 
-        if (!step.getVideoURL().isEmpty()) {
+        if (!TextUtils.isEmpty(step.getVideoURL())) {
             videoUri  = Uri.parse(step.getVideoURL());
             thumbnailURL = step.getThumbnailURL();
             initializePlayer(videoUri, thumbnailURL);
@@ -258,7 +263,7 @@ public class StepDetailsFragment extends Fragment {
         exoPlayerView.setDefaultArtwork(getBitmapFromURL(thumbnailURL));
         exoPlayerView.setPlayer(exoPlayer);
 
-        exoPlayer.setPlayWhenReady(playWhenReady);
+        exoPlayer.setPlayWhenReady(isPlayWhenReady);
         if (playbackPosition != C.TIME_UNSET) exoPlayer.seekTo(playbackPosition);
 
         MediaSource mediaSource = buildMediaSource(uri);
@@ -275,7 +280,7 @@ public class StepDetailsFragment extends Fragment {
         if (exoPlayer != null) {
             playbackPosition = exoPlayer.getCurrentPosition();
             currentWindow = exoPlayer.getCurrentWindowIndex();
-            playWhenReady = exoPlayer.getPlayWhenReady();
+            isPlayWhenReady = exoPlayer.getPlayWhenReady();
             exoPlayer.release();
             exoPlayer = null;
         }

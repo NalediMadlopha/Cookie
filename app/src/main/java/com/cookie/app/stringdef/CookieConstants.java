@@ -24,5 +24,6 @@ public @interface CookieConstants {
         String APP_WIDGET_RECIPE_NAME_PREFERENCES = "app_widget_recipe_name_preferences";
         String APP_WIDGET_INGREDIENTS_PREFERENCES = "app_widget_ingredients_preferences";
         String SELECTED_POSITION = "selected_position";
+        String PLAY_WHEN_READY_STATE = "play_when_ready_state";
     }
 }
