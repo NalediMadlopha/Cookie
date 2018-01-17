@@ -30,6 +30,8 @@ import static com.cookie.app.stringdef.CookieConstants.KEY.RECIPE_NAME;
 @RunWith(AndroidJUnit4.class)
 public class RecipeListActivityTest {
 
+    int[] positions = {0, 1, 2, 3};
+
     @Rule public ActivityTestRule<RecipeListActivity> activityTestRule
             = new ActivityTestRule<>(RecipeListActivity.class);
 
@@ -41,25 +43,30 @@ public class RecipeListActivityTest {
     @Test
     public void should_display_the_correct_recipe_name_on_the_card() {
         int recipeRecyclerView = R.id.recipe_recycler_view;
+
         onView(withRecyclerView(recipeRecyclerView)
-                .atPositionOnView(0, R.id.recipe_name_text_view))
+                .atPositionOnView(positions[0], R.id.recipe_name_text_view))
                 .check(matches(isDisplayed()))
                 .check(matches(withText("Nutella Pie")));
 
+        onView(withId(recipeRecyclerView)).perform(scrollToPosition(positions[1]));
+
         onView(withRecyclerView(recipeRecyclerView)
-                .atPositionOnView(1, R.id.recipe_name_text_view))
+                .atPositionOnView(positions[1], R.id.recipe_name_text_view))
                 .check(matches(isDisplayed()))
                 .check(matches(withText("Brownies")));
 
-        onView(withId(recipeRecyclerView)).perform(scrollToPosition(3));
+        onView(withId(recipeRecyclerView)).perform(scrollToPosition(positions[2]));
 
         onView(withRecyclerView(recipeRecyclerView)
-                .atPositionOnView(2, R.id.recipe_name_text_view))
+                .atPositionOnView(positions[2], R.id.recipe_name_text_view))
                 .check(matches(isDisplayed()))
                 .check(matches(withText("Yellow Cake")));
 
+        onView(withId(recipeRecyclerView)).perform(scrollToPosition(positions[3]));
+
         onView(withRecyclerView(recipeRecyclerView)
-                .atPositionOnView(3, R.id.recipe_name_text_view))
+                .atPositionOnView(positions[3], R.id.recipe_name_text_view))
                 .check(matches(isDisplayed()))
                 .check(matches(withText("Cheesecake")));
     }
@@ -73,20 +80,24 @@ public class RecipeListActivityTest {
                 .check(matches(isDisplayed()))
                 .check(matches(hasDrawable()));
 
+        onView(withId(recipeRecyclerView)).perform(scrollToPosition(positions[1]));
+
         onView(withRecyclerView(recipeRecyclerView)
-                .atPositionOnView(1, R.id.recipe_image_view))
+                .atPositionOnView(positions[1], R.id.recipe_image_view))
                 .check(matches(isDisplayed()))
                 .check(matches(hasDrawable()));
 
-        onView(withId(recipeRecyclerView)).perform(scrollToPosition(3));
+        onView(withId(recipeRecyclerView)).perform(scrollToPosition(positions[2]));
 
         onView(withRecyclerView(recipeRecyclerView)
-                .atPositionOnView(2, R.id.recipe_image_view))
+                .atPositionOnView(positions[2], R.id.recipe_image_view))
                 .check(matches(isDisplayed()))
                 .check(matches(hasDrawable()));
 
+        onView(withId(recipeRecyclerView)).perform(scrollToPosition(positions[3]));
+
         onView(withRecyclerView(recipeRecyclerView)
-                .atPositionOnView(3, R.id.recipe_image_view))
+                .atPositionOnView(positions[3], R.id.recipe_image_view))
                 .check(matches(isDisplayed()))
                 .check(matches(hasDrawable()));
 
