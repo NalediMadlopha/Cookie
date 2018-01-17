@@ -46,9 +46,6 @@
             android:name=".view.widget.AppWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <activity
-            android:name=".view.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>

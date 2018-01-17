@@ -48,9 +48,7 @@ public class RecipeRepository {
             @Override
             public void onResponse(Call<Recipe[]> call, Response<Recipe[]> response) {
                 data.setValue(Arrays.asList(response.body()));
-                AsyncTask.execute(() -> {
-                    recipeDao.insertAll(data.getValue());
-                });
+                AsyncTask.execute(() -> recipeDao.insertAll(data.getValue()));
             }
 
             @Override
